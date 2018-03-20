@@ -11,6 +11,16 @@
 
 # Would Be Nice...
 
-- styled-components instead of css
-- Routing for different views
-- Put request util in Redux action
+
+
+# Went Well
+
+
+
+# Could be better
+
+- retrieve method for Symptom could be cleaner. 
+
+# Was Difficult
+
+- I can definitely appreciate 

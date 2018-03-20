@@ -15,14 +15,14 @@ class SymptomViewSet(ModelViewSet):
         diagnoes_to_symptoms = DiagnosisToSymptom.objects.filter(symptom=symptom)
 
         times_encountered_sum = 0
-        diagnoses_list = {}
+        diagnoses = {}
         for d2s in diagnoes_to_symptoms:
             times_encountered_sum += d2s.times_encountered
-            diagnoses_list[d2s.id] = {
+            diagnoses[d2s.id] = {
                 'times_encountered': d2s.times_encountered,
                 'name': d2s.diagnosis.name,
             }
         return Response({
             'times_encountered_sum': times_encountered_sum,
-            'diagnoses_list': diagnoses_list,
+            'diagnoses': diagnoses,
         })
