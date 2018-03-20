@@ -7,15 +7,11 @@
 3. Create user `./manage.py createsuperuser`
 4. Run server (on port 8000) `./manage.py runserver`
 
-
-
 # Would Be Nice...
-
-
+- Command for populating DB
 
 # Went Well
-
-
+- Boilerplate for Django app was super easy to get up and going
 
 # Could be better
 
@@ -23,4 +19,4 @@
 
 # Was Difficult
 
-- I can definitely appreciate 
+- Dealing with QuerySets is sometimes confusing
