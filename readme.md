@@ -17,6 +17,8 @@
 - Routing for different views
 - Put request util in Redux action
 - Build proper error handling
+- Build proper loading mechanism
+- Display more than one item if equal or close to equal in terms of number of times seen
 
 
 
