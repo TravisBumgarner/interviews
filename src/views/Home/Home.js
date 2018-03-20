@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import DropDownMenu from 'material-ui/DropDownMenu';
 import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
 
 import { apiRequest } from '../../utils/index';
 
@@ -11,21 +12,24 @@ import {
 
 const NO_SYMPTOM_SELECTED = '0';
 
+const DEFAULT_STATE = {
+  // Phase 1
+  symptoms: {},
+  selectedSymptom: NO_SYMPTOM_SELECTED,
+  // Phase 2
+  diagnoses: {},
+  selectedDiagnosis: {},
+  diagnosesSeenSum: 0,
+  areDiagnosesLoaded: false,
+  isFirstDiagnosisGuess: true,
+  shouldDisplayReset: false,
+}
+
 
 export default class Home extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      // Phase 1
-      symptoms: {},
-      selectedSymptom: NO_SYMPTOM_SELECTED,
-      // Phase 2
-      diagnoses: {},
-      selectedDiagnosis: {},
-      diagnosesSeenSum: 0,
-      areDiagnosesLoaded: false,
-      isFirstDiagnosisGuess: true,
-    }
+    this.state = { ...DEFAULT_STATE };
   }
 
   componentDidMount(){
@@ -69,6 +73,20 @@ export default class Home extends Component {
     });
   };
 
+  handleFirstGuessSuccess = () => {
+    alert("Glad we could help!");
+    this.setState({ shouldDisplayReset: true })
+  };
+
+  handleFirstGuessFailure = () => {
+
+  };
+
+  handleReset = () => {
+    this.setState({ ...DEFAULT_STATE })
+  };
+
+
   render() {
     const {
       symptoms,
@@ -76,6 +94,7 @@ export default class Home extends Component {
       selectedDiagnosis,
       areDiagnosesLoaded,
       isFirstDiagnosisGuess,
+      shouldDisplayReset,
     } = this.state;
 
     const symptomsList = Object.values(symptoms).map(s => {
@@ -97,18 +116,22 @@ export default class Home extends Component {
         </DropDownMenu>
 
         {/* Phase 1 */}
-        { areDiagnosesLoaded ? (
-          isFirstDiagnosisGuess ? (
-            <h2>{`Are you experiencing ${selectedDiagnosis.name} today?`}</h2>
-          ) : (
+        { areDiagnosesLoaded && (
+          isFirstDiagnosisGuess ? ([
+            <h2 key="label">{`Are you experiencing ${selectedDiagnosis.name} today?`}</h2>,
+            <RaisedButton key="yes" label="Yes!" primary={true} onClick={ this.handleFirstGuessSuccess }/>,
+            <RaisedButton key="no" label="No :(" />,
+          ]) : (
             <h2>What about one of these?</h2>
           )
-        ) : (
-          <h2>Oops</h2>
-        )
+        )}
 
+        { shouldDisplayReset &&
+          [
+            <h2>Look up something else?</h2>,
+            <RaisedButton key="yes" label="Reset" primary={true} onClick={ this.handleReset }/>,
+          ]
         }
-
       </HomeWrapper>
     )
   }
