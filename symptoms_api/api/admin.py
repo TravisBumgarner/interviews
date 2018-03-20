@@ -6,9 +6,16 @@ from django.contrib import admin
 from .models import Symptom, Diagnosis, DiagnosisToSymptom
 
 
+class DiagnosisInline(admin.TabularInline):
+    model = DiagnosisToSymptom
+    extra = 5
+
+
 @admin.register(Symptom)
 class SymptomAdmin(admin.ModelAdmin):
-    pass
+    inlines = (
+        DiagnosisInline,
+    )
 
 
 @admin.register(Diagnosis)
