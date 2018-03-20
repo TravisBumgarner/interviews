@@ -11,6 +11,7 @@ import {
 } from "./Home.styles";
 
 const NO_SYMPTOM_SELECTED = '0';
+const NO_DIAGNOSIS_SELECTED = '0';
 
 const DEFAULT_STATE = {
   // Phase 1
@@ -18,7 +19,7 @@ const DEFAULT_STATE = {
   selectedSymptom: NO_SYMPTOM_SELECTED,
   // Phase 2
   diagnoses: {},
-  selectedDiagnosis: {},
+  selectedDiagnosis: NO_DIAGNOSIS_SELECTED,
   diagnosesSeenSum: 0,
   areDiagnosesLoaded: false,
   isFirstDiagnosisGuess: true,
@@ -35,6 +36,17 @@ export default class Home extends Component {
   componentDidMount(){
     this.getSymptoms();
   }
+
+  getSymptoms = () => {
+    apiRequest('GET', 'symptoms').then(r => {
+      console.log('symptoms', r.data);
+      this.setState({
+        symptoms: r.data,
+      })
+    }).catch(e => {
+      alert('There was an error with your request, please try again later');
+    });
+  };
 
   getDiagnoses = (event, index, value) => {
     apiRequest('GET', `symptoms/${value}`).then(r => {
@@ -62,15 +74,21 @@ export default class Home extends Component {
     });
   };
 
-  getSymptoms = () => {
-    apiRequest('GET', 'symptoms').then(r => {
-      console.log('symptoms', r.data);
-      this.setState({
-        symptoms: r.data,
-      })
-    }).catch(e => {
-      alert('There was an error with your request, please try again later');
+  getDiagnosesDropdown = () => {
+    const {
+      diagnoses,
+      selectedDiagnosis,
+    } = this.state;
+
+    const secondGuessList = {...diagnoses};
+    delete secondGuessList[selectedDiagnosis.id];
+
+    const diagnosesDropdownItems = Object.values(secondGuessList).map(s => {
+      return <MenuItem value={s.id} key={s.id} primaryText={s.name}/>
     });
+
+    return diagnosesDropdownItems;
+
   };
 
   handleFirstGuessSuccess = () => {
@@ -79,7 +97,9 @@ export default class Home extends Component {
   };
 
   handleFirstGuessFailure = () => {
-
+    this.setState({
+      isFirstDiagnosisGuess: false,
+    })
   };
 
   handleReset = () => {
@@ -102,34 +122,55 @@ export default class Home extends Component {
     });
 
     const isSymptomSelected = selectedSymptom !== NO_SYMPTOM_SELECTED;
+    const isDiagnosisSelected = selectedDiagnosis !== NO_DIAGNOSIS_SELECTED;
 
     return (
       <HomeWrapper>
         {/* Phase 1 */}
         <h2>What are you experiencing today?</h2>
         <DropDownMenu
-          value={this.state.selectedSymptom}
-          onChange={this.getDiagnoses}
+          value={ selectedSymptom }
+          onChange={ this.getDiagnoses }
           disabled={ isSymptomSelected }>
           <MenuItem value={NO_SYMPTOM_SELECTED} key={NO_SYMPTOM_SELECTED} primaryText={'Select a Symptom'}/>
           {symptomsList}
         </DropDownMenu>
 
-        {/* Phase 1 */}
-        { areDiagnosesLoaded && (
-          isFirstDiagnosisGuess ? ([
+        {/* Phase 2 */}
+        { areDiagnosesLoaded && [
             <h2 key="label">{`Are you experiencing ${selectedDiagnosis.name} today?`}</h2>,
-            <RaisedButton key="yes" label="Yes!" primary={true} onClick={ this.handleFirstGuessSuccess }/>,
-            <RaisedButton key="no" label="No :(" />,
-          ]) : (
-            <h2>What about one of these?</h2>
-          )
-        )}
+            <RaisedButton
+              key="yes"
+              label="Yes!"
+              primary={ true }
+              onClick={ this.handleFirstGuessSuccess }
+              disabled={ !isFirstDiagnosisGuess }
+            />,
+            <RaisedButton
+              key="no"
+              label="No :("
+              onClick = { this.handleFirstGuessFailure }
+              disabled={ !isFirstDiagnosisGuess }
+            />,
+          ]}
+
+          {/* Phase 3 */}
+          {(areDiagnosesLoaded && !isFirstDiagnosisGuess) && [
+            <h2 key="label">What about one of these?</h2>,
+            <DropDownMenu
+              key="dropdown"
+              value={ selectedDiagnosis }
+              onChange={ this.getDiagnoses }
+            >
+              <MenuItem value={ NO_DIAGNOSIS_SELECTED } key={ NO_DIAGNOSIS_SELECTED } primaryText={'Select a Diagnosis'}/>
+              { this.getDiagnosesDropdown() }
+            </DropDownMenu>
+          ]}
 
         { shouldDisplayReset &&
           [
-            <h2>Look up something else?</h2>,
-            <RaisedButton key="yes" label="Reset" primary={true} onClick={ this.handleReset }/>,
+            <h2 key="label">Look up something else?</h2>,
+            <RaisedButton key="reset" label="Reset" primary={true} onClick={ this.handleReset }/>,
           ]
         }
       </HomeWrapper>

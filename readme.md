@@ -12,7 +12,7 @@
 
 # Would be Nice...
 
-- Redux
+- Redux - Ended up putting everything in single view because of not having to bind this, pass state via props, or deal with other bits that would be easier with Redux
 - styled-components instead of css
 - Routing for different views
 - Put request util in Redux action
