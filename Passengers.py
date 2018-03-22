@@ -26,7 +26,7 @@ class Passengers:
     def generate(self):
         r = random()
 
-        if r < self.congestion_factor:
+        if r > self.congestion_factor:
             return None
 
         else:
