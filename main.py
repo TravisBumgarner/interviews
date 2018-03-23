@@ -17,10 +17,9 @@ if __name__ == "__main__":
     p = Passengers(congestion_factor, max_x, max_y)
     t = Traxi(max_x, max_y)
 
-    new_passenger = p.generate()
     while True:
+        new_passenger = p.generate()
         t.manage(new_passenger)
-        new_passenger = None
 
 
 

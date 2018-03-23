@@ -37,3 +37,10 @@
 #Notes
 
 - Used `_x` and `_y` instead of having to destructure
+- You'll probably notice a lot of stuff like `dict.item` instead of `dict['item']` … I've been switching back and forth between JS and Python a lot recently. 
+
+
+
+# Random Hypotheses
+
+- Simplifying with a square grid, `congestion_factor` has to be less than `1/max_side_length` or else the pickup queue will go to infinity. This is based on the assumption that the average ride is equal to `max_side_length` (Best case trip is 0, worst case trip is `2*max_side_length`, average is somewhere between)

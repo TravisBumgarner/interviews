@@ -30,13 +30,13 @@ class Traxi:
         self.status = 'Idling'
 
     def print_current_status(self):
-        print('Time:        {}'.format(self.time))
-        print('Status:      {}'.format(self.status))
-        print('Location:    ({}, {})'.format(self.current_location_x, self.current_location_y))
-        print('Destination: ({}, {})'.format(self.destination_x, self.destination_y))
-        print('Current P:   {}'.format(self.current_passenger['name'] if self.current_passenger else ''))
-        print('Next P:      {}'.format(self.next_passenger['name'] if self.next_passenger else ''))
-        # print('Occupants:   {}'.format(', '.join([o['name'] for o in self.pickup_queue] if len(self.pickup_queue) else '')))
+        print('Time:         {}'.format(self.time))
+        print('Status:       {}'.format(self.status))
+        print('Location:     ({}, {})'.format(self.current_location_x, self.current_location_y))
+        print('Destination:  ({}, {})'.format(self.destination_x, self.destination_y))
+        print('Current P:    {}'.format(self.current_passenger['name'] if self.current_passenger else ''))
+        print('Next P:       {}'.format(self.next_passenger['name'] if self.next_passenger else ''))
+        print('Pickup Queue: {}'.format(len(self.pickup_queue)))
         print('\n')
 
     def increment_time(self):
@@ -66,45 +66,43 @@ class Traxi:
 
     def manage(self, new_passenger): # could be better than new_p
 
-        # Check for New Passenger and append to pickup
         if new_passenger:
             self.pickup_queue.append(new_passenger)
- 
-        # Drop off passenger if at destination
-        if self.current_passenger and \
-           self.current_location_x == self.current_passenger['end_x'] and \
-           self.current_location_y == self.current_passenger['end_y']:
+
+        if self.current_passenger:
+            at_end = self.current_location_x == self.current_passenger['end_x'] and \
+                             self.current_location_y == self.current_passenger['end_y']
+
+            if at_end:
                 print('\nDropping off Passenger {} at ({}, {})\n'.format(
-                    self.current_passenger.name,
+                    self.current_passenger['name'],
                     self.current_passenger['start_x'],
                     self.current_passenger['start_y'])
                 )
                 self.current_passenger = {}
 
-        # Drive to next passenger if not
-        if self.pickup_queue and not self.current_passenger:
-            self.next_passenger = self.pickup_queue.popleft()
-            self.set_destination(self.next_passenger['start_x'], self.next_passenger['start_y'])
+        elif self.next_passenger:
+            at_start = self.current_location_x == self.next_passenger['start_x'] and \
+                        self.current_location_y == self.next_passenger['start_y']
 
-        if self.next_passenger and \
-           self.current_location_x == self.next_passenger['end_x'] and \
-           self.current_location_y == self.next_passenger['end_y']:
+            if at_start:
                 print('\nPicking up Passenger {} at ({}, {})\n'.format(
-                    self.next_passenger.name,
+                    self.next_passenger['name'],
                     self.next_passenger['start_x'],
                     self.next_passenger['start_y'])
                 )
-
                 self.current_passenger = self.next_passenger
-                self.set_destination(self.current_passenger['end_x'], self.current_passenger['end_y'])
                 self.next_passenger = {}
+                self.set_destination(self.current_passenger['end_x'], self.current_passenger['end_y'])
 
-        # Set destination to idle if no passengers or queue
-        if not self.pickup_queue and not self.current_passenger and not self.next_passenger:
+        elif self.pickup_queue:
+            self.next_passenger = self.pickup_queue.popleft()
+            self.set_destination(self.next_passenger['start_x'], self.next_passenger['start_y'])
+
+        else:
             self.set_destination(self.idle_point_x, self.idle_point_y)
 
         self.drive()
-
         self.print_current_status()
         self.increment_time()
 
