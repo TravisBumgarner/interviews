@@ -94,7 +94,7 @@ class Traxi:
                      self.current_location_y == self.current_passenger['end_y']
 
             if at_end:
-                print('\nDropping off Passenger {} at ({}, {})\n'.format(
+                print('Dropping off Passenger {} at ({}, {})\n'.format(
                     self.current_passenger['name'],
                     self.current_passenger['start_x'],
                     self.current_passenger['start_y'])
@@ -106,7 +106,7 @@ class Traxi:
                        self.current_location_y == self.next_passenger['start_y']
 
             if at_start:
-                print('\nPicking up Passenger {} at ({}, {})\n'.format(
+                print('Picking up Passenger {} at ({}, {})\n'.format(
                     self.next_passenger['name'],
                     self.next_passenger['start_x'],
                     self.next_passenger['start_y'])

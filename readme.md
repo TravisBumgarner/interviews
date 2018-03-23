@@ -16,6 +16,58 @@
 - `passengers.py` - Added method definitons in file
 - `traxi.py` - Added method definitons in file
 
+# Sample Output
+```
+Time:         14
+Status:       Driving
+Location:     (2, 1)
+Destination:  (2, 1)
+Current P:    
+Next P:       Elfrida
+Pickup Queue: Orsa, Lorena
+
+
+Picking up Passenger Elfrida at (2, 1)
+
+Time:         15
+Status:       Driving
+Location:     (2, 2)
+Destination:  (2, 2)
+Current P:    Elfrida
+Next P:       
+Pickup Queue: Orsa, Lorena
+
+
+Dropping off Passenger Elfrida at (2, 1)
+
+Time:         16
+Status:       Idling
+Location:     (2, 2)
+Destination:  (2, 2)
+Current P:    
+Next P:       
+Pickup Queue: Orsa, Lorena
+
+
+Time:         17
+Status:       Driving
+Location:     (1, 2)
+Destination:  (0, 3)
+Current P:    
+Next P:       Orsa
+Pickup Queue: Lorena
+
+
+Time:         18
+Status:       Driving
+Location:     (1, 3)
+Destination:  (0, 3)
+Current P:    
+Next P:       Orsa
+Pickup Queue: Lorena
+
+```
+
 # Next Steps
 - When possible I commented next steps in the actual code instead of here. 
 
