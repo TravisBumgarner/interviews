@@ -96,8 +96,8 @@ class Traxi:
             if at_end:
                 print('Dropping off Passenger {} at ({}, {})\n'.format(
                     self.current_passenger['name'],
-                    self.current_passenger['start_x'],
-                    self.current_passenger['start_y'])
+                    self.current_passenger['end_x'],
+                    self.current_passenger['end_y'])
                 )
                 self.current_passenger = {}
 
