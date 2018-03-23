@@ -3,10 +3,13 @@ from collections import deque
 
 from config import SIMULATION_SPEED, GRID_SIZE
 
+
 class Traxi:
+
     """
         Traxi:  Travis Taxi, get it.... ha...
     """
+
     def __init__(self):
         self.time = 0
         self.pickup_queue = deque()
@@ -46,6 +49,11 @@ class Traxi:
         sleep(SIMULATION_SPEED)
 
     def drive(self):
+
+        """
+            Calculates the direction to travel for the next unit of time
+        """
+
         distance_away_x = self.destination_x - self.current_location_x
         distance_away_y = self.destination_y - self.current_location_y
 
@@ -68,12 +76,22 @@ class Traxi:
 
     def manage(self, new_passenger):
 
+        """
+            Runs per unit of time. It checks (Assuming there is only a current passenger OR a next passenger)
+                1. If there is a new passenger, append to queue
+                2. If there is a current passenger and if traxi is at the end, drop them off.
+                3. Else if there's a next passenger and if traxi is at the start, pick them up, set destination to end.
+                4. Else if there's neither but there is a queue, set the next passenger and set the destination to start.
+                5. Else head to middle of map and idle until queue is not empty
+                6. Increment time and print status
+        """
+
         if new_passenger:
             self.pickup_queue.append(new_passenger)
 
         if self.current_passenger:
             at_end = self.current_location_x == self.current_passenger['end_x'] and \
-                             self.current_location_y == self.current_passenger['end_y']
+                     self.current_location_y == self.current_passenger['end_y']
 
             if at_end:
                 print('\nDropping off Passenger {} at ({}, {})\n'.format(
@@ -85,7 +103,7 @@ class Traxi:
 
         elif self.next_passenger:
             at_start = self.current_location_x == self.next_passenger['start_x'] and \
-                        self.current_location_y == self.next_passenger['start_y']
+                       self.current_location_y == self.next_passenger['start_y']
 
             if at_start:
                 print('\nPicking up Passenger {} at ({}, {})\n'.format(
