@@ -1,3 +1,7 @@
+# Setup
+- Requires python2.7
+- No external packages
+
 # Notes
 - I had time to create the minimum infrastructure needed to queue up passengers, pick them up, and drop them off. I've written next steps to improve algorithm below. 
 - I haven't seen a shortest path algorithm before so I decided to see what I could come up with on my own. 
