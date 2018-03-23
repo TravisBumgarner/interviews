@@ -18,54 +18,35 @@
 
 # Sample Output
 ```
-Time:         14
+Time:         6
 Status:       Driving
-Location:     (2, 1)
-Destination:  (2, 1)
+Location:     (3, 9)
+Destination:  (3, 9)
 Current P:    
-Next P:       Elfrida
-Pickup Queue: Orsa, Lorena
+Next P:       Reggie
+Pickup Queue: Tyne, Rodi
 
 
-Picking up Passenger Elfrida at (2, 1)
+Picking up Passenger Reggie at (3, 9)
 
-Time:         15
+Time:         7
 Status:       Driving
-Location:     (2, 2)
-Destination:  (2, 2)
-Current P:    Elfrida
+Location:     (3, 10)
+Destination:  (3, 10)
+Current P:    Reggie
 Next P:       
-Pickup Queue: Orsa, Lorena
+Pickup Queue: Tyne, Rodi
 
 
-Dropping off Passenger Elfrida at (2, 1)
+Dropping off Passenger Reggie at (3, 10)
 
-Time:         16
+Time:         8
 Status:       Idling
-Location:     (2, 2)
-Destination:  (2, 2)
+Location:     (3, 10)
+Destination:  (3, 10)
 Current P:    
 Next P:       
-Pickup Queue: Orsa, Lorena
-
-
-Time:         17
-Status:       Driving
-Location:     (1, 2)
-Destination:  (0, 3)
-Current P:    
-Next P:       Orsa
-Pickup Queue: Lorena
-
-
-Time:         18
-Status:       Driving
-Location:     (1, 3)
-Destination:  (0, 3)
-Current P:    
-Next P:       Orsa
-Pickup Queue: Lorena
-
+Pickup Queue: Tyne, Rodi, Aurelia
 ```
 
 # Next Steps
