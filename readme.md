@@ -13,8 +13,8 @@
 - `config.py` - variable definitions are in the file
 - `first_names.txt` - List from GitHub with random names. (https://github.com/dominictarr/random-name/blob/master/first-names.txt)
 - `main.py` - entry point for project
-- `passengers.py` - definition in file
-- `traxi.py - 
+- `passengers.py` - Added method definitons in file
+- `traxi.py` - Added method definitons in file
 
 # Next Steps
 - When possible I commented next steps in the actual code instead of here. 
