@@ -1,28 +1,30 @@
 from time import sleep
 from collections import deque
 
+from config import SIMULATION_SPEED, GRID_SIZE
+
 class Traxi:
     """
         Traxi:  Travis Taxi, get it.... ha...
     """
-    def __init__(self, max_x, max_y):
+    def __init__(self):
         self.time = 0
         self.pickup_queue = deque()
         self.current_passenger = {}
         self.next_passenger = {}
-        self.max_x = max_x
-        self.max_y = max_y
+
+        self.max_x, self.max_y = GRID_SIZE
         self.min_x = 0
         self.min_y = 0
-        # In python2.7 this will round to an integer
-        self.current_location_x = max_x / 2
-        self.current_location_y = max_y / 2
+
+        self.current_location_x = self.max_x / 2
+        self.current_location_y = self.max_y / 2
 
         # Comment: A better way to do this would be to calculate the optimal idle point based on requests. There
         # could be a method that every 50 or so rides recalculates the optimal idle point. For purely random numbers
         # this would be the center of the grid though
-        self.idle_point_x = max_x / 2
-        self.idle_point_y = max_y / 2
+        self.idle_point_x = self.max_x / 2
+        self.idle_point_y = self.max_y / 2
 
         self.destination_x = None
         self.destination_y = None
@@ -36,12 +38,12 @@ class Traxi:
         print('Destination:  ({}, {})'.format(self.destination_x, self.destination_y))
         print('Current P:    {}'.format(self.current_passenger['name'] if self.current_passenger else ''))
         print('Next P:       {}'.format(self.next_passenger['name'] if self.next_passenger else ''))
-        print('Pickup Queue: {}'.format(len(self.pickup_queue)))
+        print('Pickup Queue: {}'.format(', '.join([p['name'] for p in self.pickup_queue])))
         print('\n')
 
     def increment_time(self):
         self.time += 1
-        sleep(0.5)
+        sleep(SIMULATION_SPEED)
 
     def drive(self):
         distance_away_x = self.destination_x - self.current_location_x
@@ -64,7 +66,7 @@ class Traxi:
         self.destination_x = x
         self.destination_y = y
 
-    def manage(self, new_passenger): # could be better than new_p
+    def manage(self, new_passenger):
 
         if new_passenger:
             self.pickup_queue.append(new_passenger)

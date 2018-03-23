@@ -1,14 +1,14 @@
 from random import random, randint, choice
 
+from config import GRID_SIZE, CONGESTION_FACTOR
 
 class Passengers:
     """
-        generate(): Returns either a new passenger or None, dependent on congestion_factor
+        generate(): Returns either a new passenger or None, dependent on CONGESTION_FACTOR
     """
-    def __init__(self, congestion_factor, max_x, max_y):
-        self.congestion_factor = congestion_factor
-        self.max_x = max_x
-        self.max_y = max_y
+    def __init__(self):
+        self.congestion_factor = CONGESTION_FACTOR
+        self.max_x, self.max_y = GRID_SIZE
         self.min_x = 0
         self.min_y = 0
 

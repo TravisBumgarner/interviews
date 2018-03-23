@@ -38,6 +38,7 @@
 
 - Used `_x` and `_y` instead of having to destructure
 - You'll probably notice a lot of stuff like `dict.item` instead of `dict['item']` … I've been switching back and forth between JS and Python a lot recently. 
+- Didn't look up existing algorithms for how to do this, thought it'd be more fun to try it out myself
 
 
 
