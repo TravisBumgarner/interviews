@@ -22,11 +22,10 @@ class Passengers:
             return None
 
         else:
-            start = (randint(self.min_x, self.max_x), randint(self.min_x, self.max_x))
-            end = (randint(self.min_y, self.max_y), randint(self.min_y, self.max_y))
-
             return {
                 'name': choice(self.names),
-                'start': start,
-                'end': end
+                'start_x': randint(self.min_x, self.max_x),
+                'start_y': randint(self.min_y, self.max_y),
+                'end_x': randint(self.min_x, self.max_x),
+                'end_y': randint(self.min_y, self.max_y),
             }

@@ -1,13 +1,15 @@
 from time import sleep
-
+from collections import deque
 
 class Traxi:
     """
-        Traxi:  Travis Taxi, get it.... ha
+        Traxi:  Travis Taxi, get it.... ha...
     """
     def __init__(self, max_x, max_y):
         self.time = 0
-        self.occupants = []
+        self.pickup_queue = deque()
+        self.current_passenger = {}
+        self.next_passenger = {}
         self.max_x = max_x
         self.max_y = max_y
         self.min_x = 0
@@ -19,25 +21,31 @@ class Traxi:
         # Comment: A better way to do this would be to calculate the optimal idle point based on requests. There
         # could be a method that every 50 or so rides recalculates the optimal idle point. For purely random numbers
         # this would be the center of the grid though
-        self.grid_idle_point_x = max_x / 2
-        self.grid_idle_point_y = max_y / 2
+        self.idle_point_x = max_x / 2
+        self.idle_point_y = max_y / 2
+
+        self.destination_x = None
+        self.destination_y = None
 
         self.status = 'Idling'
 
     def print_current_status(self):
-        print('Time:     {}'.format(self.time))
-        print('Status:   {}'.format(self.status))
-        print('Location: ({}, {})'.format(self.current_location_x, self.current_location_y))
-        print('Occupants: {}'.format(', '.join([o['name'] for o in self.occupants] if len(self.occupants) else '')))
+        print('Time:        {}'.format(self.time))
+        print('Status:      {}'.format(self.status))
+        print('Location:    ({}, {})'.format(self.current_location_x, self.current_location_y))
+        print('Destination: ({}, {})'.format(self.destination_x, self.destination_y))
+        print('Current P:   {}'.format(self.current_passenger['name'] if self.current_passenger else ''))
+        print('Next P:      {}'.format(self.next_passenger['name'] if self.next_passenger else ''))
+        # print('Occupants:   {}'.format(', '.join([o['name'] for o in self.pickup_queue] if len(self.pickup_queue) else '')))
         print('\n')
 
     def increment_time(self):
         self.time += 1
         sleep(0.5)
 
-    def drive_to_idle_point(self):
-        distance_away_x = self.grid_idle_point_x - self.current_location_x
-        distance_away_y = self.grid_idle_point_y - self.current_location_y
+    def drive(self):
+        distance_away_x = self.destination_x - self.current_location_x
+        distance_away_y = self.destination_y - self.current_location_y
 
         should_move = distance_away_x or distance_away_y
         # Decrease the larger of x or y first
@@ -52,14 +60,50 @@ class Traxi:
         else:
             self.status = 'Idling'
 
-    def drive_to_dropoff_point(self):
-        pass
+    def set_destination(self, x, y):
+        self.destination_x = x
+        self.destination_y = y
 
-    def drive(self):
-        if len(self.occupants):
-            self.drive_to_dropoff_point()
-        else:
-            self.drive_to_idle_point()
+    def manage(self, new_passenger): # could be better than new_p
+
+        # Check for New Passenger and append to pickup
+        if new_passenger:
+            self.pickup_queue.append(new_passenger)
+ 
+        # Drop off passenger if at destination
+        if self.current_passenger and \
+           self.current_location_x == self.current_passenger['end_x'] and \
+           self.current_location_y == self.current_passenger['end_y']:
+                print('\nDropping off Passenger {} at ({}, {})\n'.format(
+                    self.current_passenger.name,
+                    self.current_passenger['start_x'],
+                    self.current_passenger['start_y'])
+                )
+                self.current_passenger = {}
+
+        # Drive to next passenger if not
+        if self.pickup_queue and not self.current_passenger:
+            self.next_passenger = self.pickup_queue.popleft()
+            self.set_destination(self.next_passenger['start_x'], self.next_passenger['start_y'])
+
+        if self.next_passenger and \
+           self.current_location_x == self.next_passenger['end_x'] and \
+           self.current_location_y == self.next_passenger['end_y']:
+                print('\nPicking up Passenger {} at ({}, {})\n'.format(
+                    self.next_passenger.name,
+                    self.next_passenger['start_x'],
+                    self.next_passenger['start_y'])
+                )
+
+                self.current_passenger = self.next_passenger
+                self.set_destination(self.current_passenger['end_x'], self.current_passenger['end_y'])
+                self.next_passenger = {}
+
+        # Set destination to idle if no passengers or queue
+        if not self.pickup_queue and not self.current_passenger and not self.next_passenger:
+            self.set_destination(self.idle_point_x, self.idle_point_y)
+
+        self.drive()
 
         self.print_current_status()
         self.increment_time()
