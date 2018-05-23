@@ -18,3 +18,9 @@ class QuestionAdmin(admin.ModelAdmin):
     inlines = (
         AnswerInline,
     )
+
+    list_display = (
+        'text',
+        'has_negative_values',
+        'opperation_type',
+    )
