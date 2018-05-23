@@ -13,7 +13,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    text = models.CharField(max_length=200, unique=False)
+    text = models.IntegerField(unique=False)
     is_correct = models.BooleanField()
 
     def __unicode__(self):
