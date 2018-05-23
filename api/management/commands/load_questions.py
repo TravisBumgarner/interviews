@@ -4,6 +4,7 @@ import re
 from django.core.management.base import BaseCommand, CommandError
 
 from api.models import Question, Answer
+from api.constants import ADDITION, MULTIPLICATION, SUBTRACTION, DIVISION, UNKNOWN
 
 class Command(BaseCommand):
     help = 'Loads questions from the specified CSV file into the database.' \
@@ -29,17 +30,19 @@ class Command(BaseCommand):
         # Assumes questons are of the format: What is 1754 - 3936?
         # Ideally this would be stored within the csv to allow for varied questions
 
-        raw_opperator = re.search('\s[\+\-\*\/]\s', question).group(0).strip()
-        str_opperator = "unknown"
-        if raw_opperator == '+':
-            str_opperator = "addition"
-        elif raw_opperator == '-':
-            str_opperator = "subtraction"
-        elif raw_opperator == '*':
-            str_opperator = "multiplication"
-        elif raw_opperator == '/':
-            str_opperator = "division"
-        return str_opperator
+        raw_operator = re.search('\s[\+\-\*\/]\s', question).group(0).strip()
+        str_operator = UNKNOWN
+
+        if raw_operator == '+':
+            str_operator = ADDITION
+        elif raw_operator == '-':
+            str_operator = SUBTRACTION
+        elif raw_operator == '*':
+            str_operator = MULTIPLICATION
+        elif raw_operator == '/':
+            str_operator = DIVISION
+
+        return str_operator
 
     def handle(self, *args, **options):
         with open(options['filename'], 'rb') as f:
@@ -49,22 +52,15 @@ class Command(BaseCommand):
                 answer = int(answer)
                 detractors = [int(x) for x in raw_detractors.split(',')]
 
-                opperator = self.get_math_operation(question)
-                # has_negative_values = self.check_for_negative_values(answer, *detractors)
-                print(question, opperator)
-                # q = Question(text=question)
-                # q.save()
-                #
-                # a = Answer(text=answer, is_correct=True, question=q)
-                # a.save()
-                #
-                # for d in detractors:
-                #     a = Answer(text=d, is_correct=False, question=q)
-                #     a.save()
+                operator = self.get_math_operation(question)
+                has_negative_values = self.check_for_negative_values(answer, *detractors)
 
-# question|answer|distractors
-# What is 1754 - 3936?|-2182|3176, 6529, 6903
-# What is 3009 * 5075?|15270675|3572, 8772, 9415
-# What is 9702 - 9102?|600|7360, 2043, 2982, 1235
-# What is 6324 * 4040?|25548960|3952, 3906, 2694
-# What is 7269 * 2771?|20142399|874
+                q = Question(text=question, opperation_type=operator, has_negative_values=has_negative_values)
+                q.save()
+
+                a = Answer(text=answer, is_correct=True, question=q)
+                a.save()
+
+                for d in detractors:
+                    a = Answer(text=d, is_correct=False, question=q)
+                    a.save()
