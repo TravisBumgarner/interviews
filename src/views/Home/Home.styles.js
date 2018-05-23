@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-const HomeWrapper = styled.div`
+import {
+  DefaultCard
+} from "../../theme";
+
+const HomeCard = DefaultCard.extend`
 `;
 
 export {
-  HomeWrapper,
+  HomeCard,
 }
 

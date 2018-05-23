@@ -1,21 +1,24 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import CardContent from '@material-ui/core/CardContent';
+import CardHeader from '@material-ui/core/CardHeader';
+
 import {
-  HomeWrapper,
-} from './Home.styles'
+  HomeCard
+} from "./Home.styles";
 
 export class Home extends Component {
-  calculatePath = () => {
-    return 5;
-  }
-
   render() {
-    this.calculatePath();
     return (
-      <HomeWrapper>
-        Hi.
-      </HomeWrapper>
+      <HomeCard>
+        <CardHeader
+           title="Foo"
+        />
+        <CardContent>
+          Hi
+        </CardContent>
+      </HomeCard>
     )
 
   }

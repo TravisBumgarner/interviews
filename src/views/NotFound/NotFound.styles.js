@@ -1,9 +1,13 @@
 import styled from 'styled-components';
 
-const NotFoundWrapper = styled.div`
+import {
+  DefaultCard
+} from "../../theme";
+
+const NotFoundCard = DefaultCard.extend`
 `;
 
 export {
-  NotFoundWrapper,
+  NotFoundCard,
 }
 
