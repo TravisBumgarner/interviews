@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
+import FilterQuestionsForm from '../../containers/FilterQuestionsForm';
+
 import {
   HomeCard
 } from "./Home.styles";
@@ -13,10 +15,10 @@ export class Home extends Component {
     return (
       <HomeCard>
         <CardHeader
-           title="Foo"
+           title="Answer Questions"
         />
         <CardContent>
-          Hi
+          <FilterQuestionsForm />
         </CardContent>
       </HomeCard>
     )
