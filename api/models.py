@@ -14,13 +14,14 @@ class Question(models.Model):
         (UNKNOWN, 'Unknown'),
     )
 
-    text = models.CharField(max_length=300, unique=True)
-    has_negative_values = models.BooleanField(default=False)
     operation_type = models.CharField(
         max_length=3,
         choices=OPERATION_CHOICES,
         default='unk'
     )
+    text = models.CharField(max_length=300, unique=True)
+    has_negative_values = models.BooleanField(default=False)
+    correct_answer_id = models.IntegerField(unique=True)
 
     def __unicode__(self):
         return self.text
@@ -29,7 +30,6 @@ class Question(models.Model):
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     text = models.IntegerField(unique=False)
-    is_correct = models.BooleanField()
 
     def __unicode__(self):
-        return "{} - {}".format(self.text, self.is_correct)
+        return "{} - {}".format(self.id, self.text)

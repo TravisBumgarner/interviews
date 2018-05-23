@@ -56,11 +56,15 @@ class Command(BaseCommand):
                 has_negative_values = self.check_for_negative_values(answer, *detractors)
 
                 q = Question(text=question, operation_type=operator, has_negative_values=has_negative_values)
+                q.correct_answer_id = -1
                 q.save()
 
-                a = Answer(text=answer, is_correct=True, question=q)
+                a = Answer(text=answer, question=q)
                 a.save()
 
+                q.correct_answer_id = a.id
+                q.save()
+
                 for d in detractors:
-                    a = Answer(text=d, is_correct=False, question=q)
+                    a = Answer(text=d, question=q)
                     a.save()
