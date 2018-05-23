@@ -22,5 +22,5 @@ class QuestionAdmin(admin.ModelAdmin):
     list_display = (
         'text',
         'has_negative_values',
-        'opperation_type',
+        'operation_type',
     )

@@ -16,7 +16,7 @@ class Question(models.Model):
 
     text = models.CharField(max_length=300, unique=True)
     has_negative_values = models.BooleanField(default=False)
-    opperation_type = models.CharField(
+    operation_type = models.CharField(
         max_length=3,
         choices=OPERATION_CHOICES,
         default='unk'

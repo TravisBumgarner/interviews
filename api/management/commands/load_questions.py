@@ -55,7 +55,7 @@ class Command(BaseCommand):
                 operator = self.get_math_operation(question)
                 has_negative_values = self.check_for_negative_values(answer, *detractors)
 
-                q = Question(text=question, opperation_type=operator, has_negative_values=has_negative_values)
+                q = Question(text=question, operation_type=operator, has_negative_values=has_negative_values)
                 q.save()
 
                 a = Answer(text=answer, is_correct=True, question=q)
