@@ -83,6 +83,10 @@ REST_FRAMEWORK = {
     }
 }
 
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+)
+
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
 
