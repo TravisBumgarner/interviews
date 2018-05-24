@@ -3,26 +3,65 @@ import { connect } from 'react-redux';
 
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import Button from '@material-ui/core/Button';
 
-import Question from '../../containers/Question';
+import QuestionAdminRow from '../../containers/QuestionAdminRow';
 
 import {
   QuestionsAdminCard
 } from "./QuestionsAdmin.styles";
 
 export class QuestionsAdmin extends Component {
+  handleCreate = () => {
+
+  };
+
+  handleEdit = () => {
+
+  };
+
+  handleDelete = () => {
+
+  };
+
   render() {
     const {
+      allQuestions,
     } = this.props;
 
+    const questionRows = Object.keys(allQuestions).map(a =>{
+      return <QuestionAdminRow content={ allQuestions[a] }/>
+    });
+
     return (
-      <QuestionsAdminCard> Questions!</QuestionsAdminCard>
+      <QuestionsAdminCard>
+        <CardHeader
+           title="Edit Questions"
+        />
+        <CardContent>
+          <Button
+          variant="raised"
+          color="primary"
+          onClick={ this.handleCreate }
+          >
+            Create new question
+          </Button>
+          <Table>
+            <TableBody>
+                { questionRows }
+            </TableBody>
+          </Table>
+        </CardContent>
+      </QuestionsAdminCard>
+
     )
   }
 }
 
 export default connect((state) => ({
+  allQuestions: state.questions.all,
 }), {
 
 })(QuestionsAdmin);
