@@ -16,3 +16,5 @@ export const OPERATIONS = {
     human: "Addition"
   },
 }
+
+export const API_URL = 'http://localhost:8000/';

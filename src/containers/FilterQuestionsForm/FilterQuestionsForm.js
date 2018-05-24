@@ -11,7 +11,7 @@ import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControl from '@material-ui/core/FormControl';
 
-
+import { apiRequest } from '../../store/request/actions/apiRequest';
 import { OPERATIONS } from '../../../constants';
 
 export class FilterQuestionsForm extends Component {
@@ -61,7 +61,10 @@ export class FilterQuestionsForm extends Component {
 
   render() {
     const {
-    } = this.state;
+      apiRequest,
+    } = this.props;
+
+    apiRequest('GET', 'questions').then((r)=>console.log(r));
 
     const Checkboxes = Object.keys(OPERATIONS).map(o => {
       return (
@@ -120,4 +123,5 @@ export class FilterQuestionsForm extends Component {
 
 export default connect((state) => ({
 }), {
+  apiRequest,
 })(FilterQuestionsForm);
