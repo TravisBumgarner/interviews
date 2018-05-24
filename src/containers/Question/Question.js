@@ -28,7 +28,7 @@ export class Question extends Component {
       }
     } = this.props;
 
-    const shuffledAnswers = shuffle(answers); // Otherwise correct answer would always be first. 
+    const shuffledAnswers = shuffle(answers); // Otherwise correct answer would always be first.
 
     const Answers = shuffledAnswers.map(a => {
       return (
