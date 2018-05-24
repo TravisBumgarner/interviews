@@ -23,26 +23,39 @@ export class FilterQuestionsForm extends Component {
 
     Object.keys(OPERATIONS).map(o => {
       const value = OPERATIONS[o].computer;
-      operationTypes[value] = false;
+      operationTypes[value] = true;
     });
 
     this.state = {
-      age: '',
-      negativeValues: 'no',
-      ...operationTypes,
+      useNegativeValues: '0',
+      operationTypes,
     };
   }
 
   handleNegativeValues = event => {
-    this.setState({ negativeValues: event.target.value });
+    this.setState({ useNegativeValues: event.target.value });
   };
 
-  handleProblemTypes = name => event => {
-    this.setState({ [name]: event.target.checked });
+  handleOperationTypes = name => event => {
+    const {
+      operationTypes
+    } = this.state;
+
+    const newOperatonTypes = {
+      ...operationTypes,
+      [name]: event.target.checked
+    };
+
+    this.setState({ operationTypes: newOperatonTypes});
   };
 
   handleSubmit = () => {
-    // TODO Write this next
+    const {
+      operationTypes,
+      useNegativeValues,
+    } = this.state;
+
+    console.log(this.state)
 
   };
 
@@ -56,8 +69,8 @@ export class FilterQuestionsForm extends Component {
           key={OPERATIONS[o].computer}
           control={
             <Checkbox
-              checked={this.state[OPERATIONS[o].computer]}
-              onChange={this.handleProblemTypes(OPERATIONS[o].computer)}
+              checked={this.state.operationTypes[OPERATIONS[o].computer]}
+              onChange={this.handleOperationTypes(OPERATIONS[o].computer)}
               value={OPERATIONS[o].computer}
             />
           }
@@ -73,18 +86,18 @@ export class FilterQuestionsForm extends Component {
             <RadioGroup
               aria-label="negativeValues"
               name="negativeValues"
-              value={this.state.negativeValues}
+              value={this.state.useNegativeValues}
               onChange={this.handleNegativeValues}
             >
-              <FormControlLabel value="yes" control={<Radio />} label="Yes" />
-              <FormControlLabel value="no" control={<Radio />} label="No" />
+              <FormControlLabel value="1" control={<Radio />} label="Yes" />
+              <FormControlLabel value="0" control={<Radio />} label="No" />
             </RadioGroup>
         </FormControl>
 
         <Divider />
 
         <FormControl component="fieldset">
-          <FormLabel component="legend">Problem Types:</FormLabel>
+          <FormLabel component="legend">Select operation types:</FormLabel>
           <FormGroup>
             { Checkboxes }
           </FormGroup>
