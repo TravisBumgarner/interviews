@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import Radio from '@material-ui/core/Radio';
@@ -56,10 +57,12 @@ export class FilterQuestionsForm extends Component {
     } = this.state;
 
     const {
-      getQuestions
+      getQuestions,
+      history: { push }
     } = this.props;
     getQuestions('HI!');
-    console.log(this.state)
+    console.log(this.state);
+    push('/question');
 
   };
 
@@ -122,7 +125,7 @@ export class FilterQuestionsForm extends Component {
   }
 }
 
-export default connect((state) => ({
+export default withRouter(connect((state) => ({
 }), {
   getQuestions: questionActions.getQuestions,
-})(FilterQuestionsForm);
+})(FilterQuestionsForm));

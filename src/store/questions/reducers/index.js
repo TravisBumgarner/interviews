@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 
 import all from './all';
-import selected from './selected';
-
+import selectedId from './selectedId';
+import meta from './meta';
 
 export default combineReducers({
   all,
-  selected,
+  selectedId,
+  meta,
 });

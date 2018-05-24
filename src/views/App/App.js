@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
+
+
+
+
 import Home from '../Home';
+import SingleQuestion from '../SingleQuestion';
 import NotFound from '../NotFound';
 
 import {
@@ -14,6 +19,7 @@ export class App extends Component {
       <AppWrapper>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/question" component={SingleQuestion} />
           <Route component={NotFound} />
         </Switch>
       </AppWrapper>
@@ -21,6 +27,6 @@ export class App extends Component {
   }
 }
 
-export default connect((state) => ({
+export default withRouter(connect((state) => ({
 }), {
-})(App);
+})(App));
