@@ -1,6 +1,6 @@
 import questionActions from '../../actions';
 
-const selectedId = (state = 2, action) => {
+const selectedId = (state = 9, action) => {
   switch (action.type) {
     case questionActions.SET_SELECTED_QUESTION_ID:
       return {

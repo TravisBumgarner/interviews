@@ -2,13 +2,54 @@ import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+import Button from '@material-ui/core/Button';
+
+import { shuffle } from "../../utils/index";
+
+import {
+  QuestionWrapper,
+  AnswersWrapper,
+} from './Question.styles';
+
 export class Question extends Component {
-  render() {
+  handleCorrect = () => {
+    console.log('woo!');
+  };
+
+  handleIncorrect = () => {
+    console.log('boo :(');
+  };
+
+ render() {
     const {
-      questionContent
+      questionContent: {
+        text,
+        answers,
+      }
     } = this.props;
+
+    const shuffledAnswers = shuffle(answers); // Otherwise correct answer would always be first. 
+
+    const Answers = shuffledAnswers.map(a => {
+      return (
+        <Button
+          key={ a.text }
+          variant="raised"
+          color="primary"
+          onClick={ a.is_correct_answer ? this.handleCorrect : this.handleIncorrect }
+        >
+          { a.text }
+        </Button>
+      )
+    });
+
     return (
-      <p>{questionContent.text}</p>
+      <QuestionWrapper>
+        <p>{text}</p>
+        <AnswersWrapper>
+          { Answers }
+        </AnswersWrapper>
+      </QuestionWrapper>
     );
   }
 }
