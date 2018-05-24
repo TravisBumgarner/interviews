@@ -6,6 +6,8 @@ import Home from '../Home';
 import QuestionsAdmin from '../QuestionsAdmin';
 import SingleQuestion from '../SingleQuestion';
 import NotFound from '../NotFound';
+import CreateQuestion from '../CreateQuestion';
+
 import Nav from '../../containers/Nav';
 
 import {
@@ -20,6 +22,7 @@ export class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/question" component={SingleQuestion} />
+          <Route path="/create" component={CreateQuestion} />
           <Route path="/admin" component={QuestionsAdmin} />
           <Route component={NotFound} />
         </Switch>
