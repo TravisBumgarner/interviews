@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
 import Home from '../Home';
+import QuestionsAdmin from '../QuestionsAdmin';
 import SingleQuestion from '../SingleQuestion';
 import NotFound from '../NotFound';
 import Nav from '../../containers/Nav';
@@ -19,6 +20,7 @@ export class App extends Component {
         <Switch>
           <Route exact path="/" component={Home} />
           <Route path="/question" component={SingleQuestion} />
+          <Route path="/admin" component={QuestionsAdmin} />
           <Route component={NotFound} />
         </Switch>
       </AppWrapper>
