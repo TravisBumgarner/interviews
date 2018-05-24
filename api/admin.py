@@ -9,14 +9,20 @@ from api.models import *
 
 
 class AnswerInline(admin.TabularInline):
-    model = Answer
-    extra = 4
+    model = Question.answers.through
+    extra = 0
 
 
 @admin.register(Question)
 class QuestionAdmin(admin.ModelAdmin):
     inlines = (
         AnswerInline,
+    )
+
+    fields = (
+        'text',
+        'operation_type',
+        'has_negative_values'
     )
 
     list_display = (

@@ -9,11 +9,13 @@ class AnswerSerializer(serializers.ModelSerializer):
         fields = (
             'id',
             'text',
-            'question',
+            'is_correct_answer',
+
         )
 
 
 class QuestionSerializer(serializers.ModelSerializer):
+    answers = AnswerSerializer(many=True)
 
     class Meta:
         model = Question
@@ -22,4 +24,5 @@ class QuestionSerializer(serializers.ModelSerializer):
             'text',
             'has_negative_values',
             'operation_type',
+            'answers'
         )

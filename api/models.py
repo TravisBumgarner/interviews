@@ -5,6 +5,15 @@ from django.db import models
 
 from api.constants import ADDITION, MULTIPLICATION, SUBTRACTION, DIVISION, UNKNOWN
 
+
+class Answer(models.Model):
+    is_correct_answer = models.BooleanField(default=False)
+    text = models.IntegerField(unique=False)
+
+    def __unicode__(self):
+        return "{} - {}".format(self.id, self.text)
+
+
 class Question(models.Model):
     OPERATION_CHOICES = (
         (ADDITION, 'Addition'),
@@ -20,16 +29,8 @@ class Question(models.Model):
         default='unk'
     )
     text = models.CharField(max_length=300, unique=True)
+    answers = models.ManyToManyField(Answer, related_name="answers")
     has_negative_values = models.BooleanField(default=False)
-    correct_answer_id = models.IntegerField(unique=True)
 
     def __unicode__(self):
         return self.text
-
-
-class Answer(models.Model):
-    question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    text = models.IntegerField(unique=False)
-
-    def __unicode__(self):
-        return "{} - {}".format(self.id, self.text)
