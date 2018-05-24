@@ -2,10 +2,10 @@ import { combineReducers, createStore, applyMiddleware } from 'redux';
 import { createLogger } from 'redux-logger';
 import ReduxThunk from 'redux-thunk';
 
-// import request from './request/reducers';
+import questions from './questions/reducers';
 
 const rootReducer = combineReducers({
-  // request,
+  questions,
 });
 
 let middleware = [ReduxThunk];

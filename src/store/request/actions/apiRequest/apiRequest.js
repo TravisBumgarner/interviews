@@ -20,29 +20,37 @@ export const apiRequestFailure = detail => ({
   detail,
 });
 
+// export const apiRequest = (method, endpoint, data = {}) => {
+//   return (dispatch) => {
+//     dispatch(apiRequestStart());
+//     return new Promise((resolve, reject) => {
+//       axios.request({
+//         method,
+//         url: `${API_URL}${endpoint}`,
+//         data,
+//       }).then((response) => {
+//         const { data } = response;
+//         if (data.is_submit_error){
+//           dispatch(apiRequestFailure(data));
+//           reject();
+//         } else {
+//         dispatch(apiRequestSuccess(data));
+//         resolve();
+//         }
+//       }).catch((error) => {
+//         dispatch(apiRequestFailure('There was an error, please try again later.'));
+//         reject();
+//       });
+//     });
+//   };
+// };
+
 export const apiRequest = (method, endpoint, data = {}) => {
-  return (dispatch) => {
-    dispatch(apiRequestStart());
-    return new Promise((resolve, reject) => {
-      axios.request({
-        method,
-        url: `${API_URL}${endpoint}`,
-        data,
-      }).then((response) => {
-        const { data } = response;
-        if (data.is_submit_error){
-          dispatch(apiRequestFailure(data));
-          reject();
-        } else {
-        dispatch(apiRequestSuccess(data));
-        resolve();
-        }
-      }).catch((error) => {
-        dispatch(apiRequestFailure('There was an error, please try again later.'));
-        reject();
-      });
-    });
-  };
+  return axios.request({
+    method,
+    url: `${API_URL}${endpoint}`,
+    data,
+  })
 };
 
 
