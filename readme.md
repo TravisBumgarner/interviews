@@ -7,4 +7,4 @@
 3. Create superuser `python manage.py createsuperuser`
 4. Load questions into project from question_dump.csv `python manage.py load_questions --filename ./question_dump.csv`
 5. Launch server `python manage.py runserver`
-6. API is browseable by default at `localhost:8000`, admin at `localhost:8000/admin` (use superuser credentials)
+6. API admin is viewable at `localhost:8000/admin` (use superuser credentials)
