@@ -31,5 +31,3 @@ class Command(BaseCommand):
                 questions_processed += 1
                 if questions_processed % 25 == 0:
                     print('{} questions processed'.format(questions_processed))
-gs
-
