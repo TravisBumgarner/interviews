@@ -9,21 +9,29 @@ import Divider from '@material-ui/core/Divider';
 import questionActions from '../../store/questions/actions';
 import { OPERATIONS } from '../../../constants';
 
-const NUMBER_OF_ANSWERS = 5;
+import {
+  CreateEditQuestionWrapper,
+  QuestionPartTextField,
+} from './CreateEditQuestion.styles';
+
+const NUMBER_OF_INCORRECT_ANSWERS = 4;
 
 export class CreateEditQuestion extends Component {
 
   constructor(props) {
     super(props);
 
-    const answerKeys = {};
-    for (let i=1; i < NUMBER_OF_ANSWERS + 1; i++){
-      answerKeys[`answer${i}`] = ""
+    const incorrectAnswers = {};
+    for (let i=1; i < NUMBER_OF_INCORRECT_ANSWERS + 1; i++){
+      incorrectAnswers[`incorrectAnswer${i}`] = ""
     }
 
     this.state = {
-      ...answerKeys,
-      question: "",
+      ...incorrectAnswers,
+      value1: "",
+      value2: "",
+      operator: "",
+      correctAnswer: "",
     };
   }
 
@@ -34,39 +42,82 @@ export class CreateEditQuestion extends Component {
   };
 
   handleCreate = () => {
+    const {
+      value1,
+      value2,
+      operator,
+      correctAnswer,
+    } = this.state;
+
+    let incorrectAnswers = [];
+    for (let i=1; i < NUMBER_OF_INCORRECT_ANSWERS + 1; i++){
+      incorrectAnswers.push(this.state[`incorrectAnswer${i}`]);
+    }
+    incorrectAnswers = incorrectAnswers.join(',');
+    const question = `What is ${value1} ${operator} ${value2}`;
+
+    console.log(question, incorrectAnswers, correctAnswer);
+
+    // The form could be written better or some validation could be useful here.
   };
 
   render() {
 
-    const answerInputFields = [];
-    for (let i=1; i < NUMBER_OF_ANSWERS + 1; i++){
+    const incorrectAnswerInputFields = [];
+    for (let i=1; i < NUMBER_OF_INCORRECT_ANSWERS + 1; i++){
       const inputField = (
         <TextField
           fullWidth
-          key={`answer${i}`}
-          id={`answer${i}`}
-          label={`answer${i}`}
-          value={this.state[`answer${i}`]}
-          onChange={this.handleChange(`answer${i}`)}
+          key={`incorrectAnswer${i}`}
+          id={`incorrectAnswer${i}`}
+          label={`Incorrect Answer ${i}`}
+          value={this.state[`incorrectAnswer${i}`]}
+          onChange={this.handleChange(`incorrectAnswer${i}`)}
           margin="normal"
         />
       );
-      answerInputFields.push(inputField);
+      incorrectAnswerInputFields.push(inputField);
     }
 
     return (
-      <Fragment>
+      <CreateEditQuestionWrapper>
+        What is
 
-        <TextField
-          fullWidth
-          id={`question`}
-          label={`question`}
-          value={this.state.question}
-          onChange={this.handleChange(`question`)}
+        <QuestionPartTextField
+          id={`value1`}
+          label={`Value 1`}
+          value={this.state.value1}
+          onChange={this.handleChange(`value1`)}
           margin="normal"
         />
 
-        { answerInputFields }
+        <QuestionPartTextField
+          id={`operator`}
+          label={`* + / -`}
+          value={this.state.operator}
+          onChange={this.handleChange(`operator`)}
+          margin="normal"
+        />
+
+        <QuestionPartTextField
+          id={`value2`}
+          label={`Value 2`}
+          value={this.state.value2}
+          onChange={this.handleChange(`value2`)}
+          margin="normal"
+        />
+        ?
+        <TextField
+          fullWidth
+          key="correctAnswer"
+          id="correctAnswer"
+          label="Correct Answer"
+          value={this.state["correctAnswer"]}
+          onChange={this.handleChange("correctAnswer")}
+          margin="normal"
+        />
+
+        { incorrectAnswerInputFields }
 
         <Divider />
 
@@ -78,7 +129,7 @@ export class CreateEditQuestion extends Component {
         >
           Create
         </Button>
-      </Fragment>
+      </CreateEditQuestionWrapper>
     );
   }
 }

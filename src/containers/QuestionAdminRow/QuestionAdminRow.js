@@ -22,7 +22,7 @@ export class QuestionAdminRow extends Component {
           <Button
           variant="raised"
           color="primary"
-          onClick={ this.handleEdit }
+          onClick={ () => {alert('Coming soon!')} }
           >
             Edit
           </Button>
@@ -31,7 +31,7 @@ export class QuestionAdminRow extends Component {
           <Button
           variant="raised"
           color="primary"
-          onClick={ this.handleEdit }
+          onClick={ this.handleDelete }
           >
             Delete
           </Button>

@@ -7,6 +7,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import Button from '@material-ui/core/Button';
 
+
 import CreateEditQuestion from '../../containers/CreateEditQuestion';
 
 import {
@@ -30,7 +31,7 @@ export class CreateQuestion extends Component {
     return (
       <CreateQuestionCard>
         <CardHeader
-           title="Edit Questions"
+           title="Create a Question"
         />
         <CardContent>
           <CreateEditQuestion />

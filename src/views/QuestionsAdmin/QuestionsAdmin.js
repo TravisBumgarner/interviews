@@ -15,15 +15,11 @@ import {
 
 export class QuestionsAdmin extends Component {
   handleCreate = () => {
+    const {
+      history: { push }
+    } = this.props;
 
-  };
-
-  handleEdit = () => {
-
-  };
-
-  handleDelete = () => {
-
+    push('/create')
   };
 
   render() {
@@ -38,7 +34,7 @@ export class QuestionsAdmin extends Component {
     return (
       <QuestionsAdminCard>
         <CardHeader
-           title="Edit Questions"
+           title="Add/Edit Questions"
         />
         <CardContent>
           <Button

@@ -15,7 +15,7 @@ export class Home extends Component {
     return (
       <HomeCard>
         <CardHeader
-           title="Answer Questions"
+           title="Filter Questions"
         />
         <CardContent>
           <FilterQuestionsForm />
