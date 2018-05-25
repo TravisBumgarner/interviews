@@ -1,12 +1,16 @@
 import questionActions from '../../actions';
 
-const selectedId = (state = 9, action) => {
+const selectedId = (state = -1, action) => {
   switch (action.type) {
+    case questionActions.GET_QUESTIONS_SUCCESS:
+      // This could definitely be handled better in the future. Perhaps with some kind of
+      // queue that keeps track of the next question.
+      return Object.values(action.data)[0].id;
+
     case questionActions.SET_SELECTED_QUESTION_ID:
-      return {
-        ...action.id
-      };
-    default:
+      return action.id;
+
+      default:
       return state;
   }
 };

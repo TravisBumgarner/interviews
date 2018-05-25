@@ -9,6 +9,7 @@ const all = (state = defaultState, action) => {
   switch (action.type) {
     case questionActions.GET_QUESTIONS_START:
       return {
+        ...state,
         isLoading: true,
       };
 

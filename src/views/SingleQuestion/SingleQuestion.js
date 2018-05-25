@@ -14,10 +14,11 @@ import {
 export class SingleQuestion extends Component {
   render() {
     const {
-      questions,
       isLoading,
       doQuestionsExist,
     } = this.props;
+
+    console.log('WHY', isLoading, doQuestionsExist);
 
     return (
       isLoading ? (
@@ -26,7 +27,7 @@ export class SingleQuestion extends Component {
         doQuestionsExist ? (
           <SingleQuestionCard>
             <CardHeader
-               title='Something Here.'
+               title='Math!'
             />
             <CardContent>
               <Question />
