@@ -31,6 +31,7 @@ export class SingleQuestion extends Component {
             />
             <CardContent>
               <Question />
+
             </CardContent>
           </SingleQuestionCard>
         ) : (

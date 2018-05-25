@@ -49,6 +49,14 @@ export class Question extends Component {
         <AnswersWrapper>
           { Answers }
         </AnswersWrapper>
+
+        <Button
+          variant="raised"
+          color="primary"
+          onClick={ () => {(alert("Coming soon!"))} }
+        >
+          Next question >>
+        </Button>
       </QuestionWrapper>
     );
   }
