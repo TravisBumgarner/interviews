@@ -23,9 +23,9 @@ export const createQuestion = (params) => {
   return (dispatch) => {
     dispatch(createQuestionStart());
     return new Promise((resolve, reject) => {
-      requestActions.apiRequest('POST', 'questions/', params).then((response) => {
+      requestActions.apiRequest('POST', 'questions', params).then((response) => {
         const { data } = response;
-        console.log(data);
+        alert(data);
         dispatch(createQuestionSuccess(data));
         resolve();
       }).catch((error) => {

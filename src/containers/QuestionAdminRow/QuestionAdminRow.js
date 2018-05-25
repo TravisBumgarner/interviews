@@ -1,16 +1,23 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 
-import { shuffle } from "../../utils/index";
-
+import questionActions from '../../store/questions/actions';
 
 export class QuestionAdminRow extends Component {
- render() {
+  handleDelete = () => {
+    const {
+      content: { id },
+      deleteQuestion,
+    } = this.props;
+
+    deleteQuestion({ id })
+  };
+
+  render() {
     const {
       content,
     } = this.props;
@@ -43,4 +50,5 @@ export class QuestionAdminRow extends Component {
 
 export default connect((state) => ({
 }), {
+  deleteQuestion: questionActions.deleteQuestion,
 })(QuestionAdminRow);

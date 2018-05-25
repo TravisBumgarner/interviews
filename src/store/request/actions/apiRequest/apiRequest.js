@@ -46,11 +46,14 @@ export const apiRequestFailure = detail => ({
 // };
 
 export const apiRequest = (method, endpoint, data = {}) => {
-  // These could be split out into separate functions for simplication.
+  // These could be split out into separate functions for simplification.
+
   if (method === 'GET'){
-    return axios.get(`${API_URL}${endpoint}`, { params: data });
+    return axios.get(`${API_URL}/${endpoint}`, { params: data });
   } else if (method === 'POST'){
-    return axios.post(`${API_URL}${endpoint}`, data);
+    return axios.post(`${API_URL}/${endpoint}`, data);
+  } else if (method === 'DELETE'){
+    return axios.delete(`${API_URL}/${endpoint}/${data['id']}`)
   }
 };
 
