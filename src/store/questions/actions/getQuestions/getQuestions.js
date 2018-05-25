@@ -25,6 +25,7 @@ export const getQuestions = (params) => {
     return new Promise((resolve, reject) => {
       requestActions.apiRequest('GET', 'questions', params).then((response) => {
         const { data } = response;
+        console.log(data);
         dispatch(getQuestionsSuccess(data));
         resolve();
       }).catch((error) => {

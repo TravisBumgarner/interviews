@@ -13,11 +13,11 @@ import {
 
 export class Question extends Component {
   handleCorrect = () => {
-    console.log('woo!');
+    alert('woo!');
   };
 
   handleIncorrect = () => {
-    console.log('boo :(');
+    alert('try again :(');
   };
 
  render() {

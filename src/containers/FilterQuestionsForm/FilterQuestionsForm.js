@@ -60,8 +60,15 @@ export class FilterQuestionsForm extends Component {
       getQuestions,
       history: { push }
     } = this.props;
-    getQuestions('HI!');
-    console.log(this.state);
+
+    const requestedOperationTypes = Object.keys(operationTypes).filter(o => operationTypes[o]).join(',');
+
+    const params = {
+      requestedOperationTypes,
+      useNegativeValues,
+    };
+
+    getQuestions(params);
     push('/question');
 
   };
