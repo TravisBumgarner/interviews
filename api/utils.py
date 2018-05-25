@@ -3,8 +3,9 @@ import re
 from api.constants import ADDITION, MULTIPLICATION, SUBTRACTION, DIVISION, UNKNOWN
 from api.models import Question, Answer
 
+
 def get_math_operation(question):
-    # Assumes questons are of the format: What is 1754 - 3936?
+    # Assumes questions are of the format: What is 1754 - 3936?
     # Ideally this would be stored within the csv to allow for varied questions
 
     raw_operator = re.search('\s[\+\-\*\/]\s', question).group(0).strip()

@@ -8,7 +8,6 @@ router = routers.DefaultRouter()
 router.register(r'questions', QuestionViewSet)
 router.register(r'answers', AnswerViewSet)
 
-
 urlpatterns = [
     url(r'^', include(router.urls)),
 ]

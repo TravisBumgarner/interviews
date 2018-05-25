@@ -10,7 +10,6 @@ class AnswerSerializer(serializers.ModelSerializer):
             'id',
             'text',
             'is_correct_answer',
-
         )
 
 
