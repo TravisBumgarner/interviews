@@ -20,7 +20,7 @@ export class FilterQuestionsForm extends Component {
   constructor(props) {
     super(props);
 
-    const operationTypes = {}
+    const operationTypes = {};
 
     Object.keys(OPERATIONS).map(o => {
       const value = OPERATIONS[o].computer;

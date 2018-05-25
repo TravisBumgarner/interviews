@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
@@ -7,7 +7,6 @@ import TextField from '@material-ui/core/TextField';
 import Divider from '@material-ui/core/Divider';
 
 import questionActions from '../../store/questions/actions';
-import { OPERATIONS } from '../../../constants';
 
 import {
   CreateEditQuestionWrapper,

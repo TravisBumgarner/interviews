@@ -7,7 +7,7 @@ const CreateEditQuestionWrapper = styled.div`
 const QuestionPartTextField = styled(TextField)`
   width: 75px;
   margin-left: 20px !important;
-`
+`;
 
 export {
   CreateEditQuestionWrapper,
