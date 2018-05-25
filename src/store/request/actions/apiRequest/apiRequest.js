@@ -45,12 +45,13 @@ export const apiRequestFailure = detail => ({
 //   };
 // };
 
-export const apiRequest = (method, endpoint, params = {}) => {
-  return axios({
-    method,
-    url: `${API_URL}${endpoint}`,
-   params,
-  })
+export const apiRequest = (method, endpoint, data = {}) => {
+  // These could be split out into separate functions for simplication.
+  if (method === 'GET'){
+    return axios.get(`${API_URL}${endpoint}`, { params: data });
+  } else if (method === 'POST'){
+    return axios.post(`${API_URL}${endpoint}`, data);
+  }
 };
 
 

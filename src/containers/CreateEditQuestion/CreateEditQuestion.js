@@ -42,12 +42,18 @@ export class CreateEditQuestion extends Component {
   };
 
   handleCreate = () => {
+    // The form could be written better or some validation could be useful here.
+
     const {
       value1,
       value2,
       operator,
       correctAnswer,
     } = this.state;
+
+    const {
+      createQuestion,
+    } = this.props;
 
     let incorrectAnswers = [];
     for (let i=1; i < NUMBER_OF_INCORRECT_ANSWERS + 1; i++){
@@ -56,9 +62,13 @@ export class CreateEditQuestion extends Component {
     incorrectAnswers = incorrectAnswers.join(',');
     const question = `What is ${value1} ${operator} ${value2}`;
 
-    console.log(question, incorrectAnswers, correctAnswer);
+    const questionData = {
+      question,
+      incorrectAnswers,
+      correctAnswer
+    };
 
-    // The form could be written better or some validation could be useful here.
+    createQuestion(questionData);
   };
 
   render() {
@@ -136,5 +146,5 @@ export class CreateEditQuestion extends Component {
 
 export default withRouter(connect((state) => ({
 }), {
-  getQuestions: questionActions.getQuestions,
+  createQuestion: questionActions.createQuestion,
 })(CreateEditQuestion));

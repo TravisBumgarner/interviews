@@ -28,7 +28,7 @@ export class QuestionsAdmin extends Component {
     } = this.props;
 
     const questionRows = Object.keys(allQuestions).map(a =>{
-      return <QuestionAdminRow content={ allQuestions[a] }/>
+      return <QuestionAdminRow key={a} content={ allQuestions[a] }/>
     });
 
     return (
