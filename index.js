@@ -13,14 +13,20 @@ mongoose.connect('mongodb://localhost/sol').then((m)=>{
   console.log(e);
 });
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'true'}));
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
-app.use('/test', test)
+app.use('/test', test);
 app.use('/measurements', measurements);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
   console.log(`running on port ${port}`);
