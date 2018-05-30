@@ -4,9 +4,17 @@ var mongoose = require('mongoose');
 var Measurement = require('../models/Measurement');
 var router = express.Router();
 
+router.get('/:id', (req, res, next) => {
+  console.log(`get request received for ${req.params.id}`);
+  Measurement.findById(req.params.id, req.body, (err, measurement) => {
+    if(err) return next(err);
+    res.json(measurement);
+  })
+});
+
 router.get('/', (req, res, next) => {
   console.log('get request received')
-  Measurement.find( (err, measurements) => {
+  Measurement.find((err, measurements) => {
     if(err) return next(err);
     res.json(measurements);
   })
