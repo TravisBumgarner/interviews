@@ -7,6 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 
 import { MEASUREMENTS_COLUMNS_ORDER } from '../../constants';
+import measurementActions from '../../store/measurements/actions';
 
 import {
 } from './AdminRow.styles';
@@ -17,11 +18,16 @@ export class AdminRow extends Component {
   };
 
   handleDelete = () => {
-    console.log('delete');
+    const {
+      data: { _id },
+      deleteMeasurement,
+    } = this.props;
+    const shouldDelete = confirm("Are you sure you want to delete this entry?");
+    if(shouldDelete) deleteMeasurement(_id);
+    console.log(`delete ${ _id }`);
   };
 
   render() {
-
     const {
       data,
     } = this.props;
@@ -51,8 +57,10 @@ export class AdminRow extends Component {
 
 AdminRow.propTypes = {
   data: PropTypes.object.isRequired,
+  deleteMeasurement: PropTypes.func.isRequired,
 };
 
 export default connect((state, props) => ({
 }), {
+  deleteMeasurement: measurementActions.deleteMeasurement,
 })(AdminRow);

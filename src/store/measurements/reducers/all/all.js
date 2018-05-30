@@ -7,6 +7,10 @@ const all = (state = [], action) => {
         ...state,
         ...action.payload.data,
       ];
+    case measurementActions.DELETE_MEASUREMENT_SUCCESS:
+      return [
+        ...state.filter(s => s._id !== action._id)
+      ];
     default:
       return state;
   }
