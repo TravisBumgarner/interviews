@@ -1,27 +1,26 @@
 const express = require('express');
+const db = require('./db');
+const mongoose = require('mongoose');
+
 const app = express();
+const measurements = require('./routes/measurements');
+const test = require('./routes/test');
 
-app.get('/', (req, res) => {
-    res.send('ok');
-});
 
-app.get('/measurements', (req, res) => {
-    res.send('get all measurements')
-});
+mongoose.Promise = global.Promise;
 
-app.post('/measurements', (req, res) => {
-    res.send('create new measurement')
-});
-app.put('/measurements/:id', (req, res) => {
-    res.send(`update measurement ${req.params.id}`)
+mongoose.connect('mongodb://localhost/sol2').then((m)=>{
+  console.log('connected to mongo db');
+}).catch((e)=>{
+  console.log(e);
 });
 
-app.delete('/measurements/:id', (req, res) => {
-    res.send(`delete measurement ${req.params.id}`)
-});
+
+app.use('/test', test)
+app.use('/measurements', measurements);
 
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-    console.log(`running on port ${port}`);
+  console.log(`running on port ${port}`);
 })
