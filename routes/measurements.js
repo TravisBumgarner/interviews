@@ -1,19 +1,22 @@
 var express = require('express');
 var mongoose = require('mongoose');
 
+var Measurement = require('../models/Measurement');
 var router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   console.log('get request received')
-  const results = db.getMeasurements();
-  console.log('results', results);
-  return res.send(results);
+  Measurement.find( (err, measurements) => {
+    if(err) return next(err);
+    res.json(measurements);
+  })
 });
 
-router.post('/', (req, res) => {
-  console.log('post request received');
-  const result = db.createMeasurement({year: 2010});
-  res.send(result);
+router.post('/', (req, res, next) => {
+  Measurement.create(req.body, (err, post) => {
+    if(err) return next(err);
+    res.json(post);
+  });
 });
 
 router.put('/:id', (req, res) => {
@@ -25,3 +28,23 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+
+
+
+// async function createMeasurement(data){
+//   const measurement = new Measurement(data)
+//   const result = await measurement.save();
+//   return result;
+// }
+// createMeasurement({})
+
+// async function getMeasurements(){
+//   const measurements = await Measurement.find();
+//   console.log(measurements);
+//   return measurements;
+// }
+
+// module.exports = {
+//   createMeasurement,
+//   getMeasurements,
+// }
