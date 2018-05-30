@@ -24,12 +24,22 @@ export class Admin extends Component {
   }
 
   render(){
+    const {
+      measurements,
+    } = this.props;
+
+    console.log(measurements);
+    console.log(Array.isArray(measurements));
 
     const headerCells = MEASUREMENTS_COLUMNS_ORDER.map(m => {
       return <TableCell key={ m }>{ m.toUpperCase() }</TableCell>
     });
     headerCells.push(<TableCell key="edit">EDIT</TableCell>);
     headerCells.push(<TableCell key="delete">DELETE</TableCell>);
+
+    const rows = measurements.map(m => {
+      return <AdminRow key = { m._id } data={ m } />
+    });
 
     return (
       <AdminCard>
@@ -46,8 +56,7 @@ export class Admin extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              <AdminRow id={ 0 }/>
-              <AdminRow id={ 1 }/>
+              { rows }
             </TableBody>
           </Table>
 
@@ -59,7 +68,7 @@ export class Admin extends Component {
 }
 
 export default connect((state) => ({
-
+  measurements: state.measurements.all,
 }), {
 
 })(Admin);

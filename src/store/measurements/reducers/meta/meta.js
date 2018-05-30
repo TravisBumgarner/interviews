@@ -1,7 +1,7 @@
 import measurementActions from '../../actions';
 
 const defaultState = {
-  isLoading: false,
+  isLoading: true,
   doMeasurementsExist: false,
 };
 

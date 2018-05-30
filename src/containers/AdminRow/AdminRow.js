@@ -50,11 +50,9 @@ export class AdminRow extends Component {
 }
 
 AdminRow.propTypes = {
-  id: PropTypes.string.isRequired,
-}
+  data: PropTypes.object.isRequired,
+};
 
 export default connect((state, props) => ({
-  data: state.measurements.all[0], // TODO replace this with actual selectedId
 }), {
-
 })(AdminRow);

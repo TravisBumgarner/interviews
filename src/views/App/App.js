@@ -35,7 +35,7 @@ export class App extends Component {
 
 
     return (
-      (!isLoading && doMeasurementsExist) ? (
+      !isLoading ? (
         <AppWrapper>
           <Nav/>
           <Switch>
@@ -45,7 +45,9 @@ export class App extends Component {
           </Switch>
         </AppWrapper>
       ) : (
-        <CircularProgress />
+        <AppWrapper>
+          <CircularProgress />
+        </AppWrapper>
         )
 
     )
