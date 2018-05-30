@@ -20,11 +20,19 @@ router.post('/', (req, res, next) => {
 });
 
 router.put('/:id', (req, res) => {
-  res.send(`update measurement ${req.params.id}`)
+  console.log(`updating ${req.params.id}`);
+  Measurement.findByIdAndUpdate(req.params.id, req.body, (err, post) => {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
-router.delete('/:id', (req, res) => {
-  res.send(`delete measurement ${req.params.id}`)
+router.delete('/:id', (req, res, next) => {
+  console.log(`deleting ${req.params.id}`);
+  Measurement.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 module.exports = router;
