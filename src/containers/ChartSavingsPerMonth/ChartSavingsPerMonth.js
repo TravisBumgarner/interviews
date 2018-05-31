@@ -5,44 +5,6 @@ import PropTypes from 'prop-types';
 
 import Header from '../../components/Header';
 
-const RAW_DATA = [
-    {
-        "year": 2017,
-        "month": 4,
-        "kwh": 1000,
-        "bill": 124.04,
-        "savings": 12.99
-    },
-    {
-        "year": 2017,
-        "month": 3,
-        "kwh": 730,
-        "bill": 94.14,
-        "savings": 2.99
-    },
-    {
-        "year": 2017,
-        "month": 2,
-        "kwh": 500,
-        "bill": 70.04,
-        "savings": 1.32
-    },
-    {
-        "year": 2017,
-        "month": 1,
-        "kwh": 750,
-        "bill": 73.29,
-        "savings": 3.49
-    },
-    {
-        "year": 2016,
-        "month": 12,
-        "kwh": 1500,
-        "bill": 144.04,
-        "savings": 19.81
-    },
-];
-
 export class ChartSavingsPerMonth extends Component {
   constructor(props) {
     super(props);
@@ -53,6 +15,10 @@ export class ChartSavingsPerMonth extends Component {
   }
 
   processData = () => {
+    const {
+      data,
+    } = this.props;
+
     const chartData = {
       labels: [],
       series: [],
@@ -67,7 +33,7 @@ export class ChartSavingsPerMonth extends Component {
       className: 'billSeriesStackedBar'
     };
 
-    RAW_DATA.sort((a, b) => new Date(a.year, a.month) - new Date(b.year, b.month)).map(d => {
+    data.sort((a, b) => new Date(a.year, a.month) - new Date(b.year, b.month)).map(d => {
       chartData.labels.push(`${d.year} - ${d.month}`);
       // Series needs to be an array of arrays.
       savingsSeries.data.push(d.savings);
@@ -100,5 +66,6 @@ ChartSavingsPerMonth.propTypes = {
 };
 
 export default connect((state, props) => ({
+  data: state.measurements.all,
 }), {
 })(ChartSavingsPerMonth);

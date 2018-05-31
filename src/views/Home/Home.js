@@ -17,7 +17,7 @@ export class Home extends Component {
     return (
       <HomeCard>
         <CardHeader
-           title="Welcome"
+           title="Welcome!"
         />
         <CardContent>
           <ChartSavingsPerMonth />
