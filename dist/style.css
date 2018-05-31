@@ -5,3 +5,7 @@
 .billSeriesStackedBar{
     stroke: red;
 }
+
+.usageSeriesLine{
+    stroke: green;
+}

@@ -5,6 +5,7 @@ import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
 import ChartSavingsPerMonth from '../../containers/ChartSavingsPerMonth';
+import ChartUsagePerMonth from '../../containers/ChartUsagePerMonth';
 
 import {
   HomeCard
@@ -20,6 +21,7 @@ export class Home extends Component {
         />
         <CardContent>
           <ChartSavingsPerMonth />
+          <ChartUsagePerMonth />
         </CardContent>
       </HomeCard>
     )
