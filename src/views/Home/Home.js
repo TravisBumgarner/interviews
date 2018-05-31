@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 
+import ChartSavingsPerMonth from '../../containers/ChartSavingsPerMonth';
 
 import {
   HomeCard
@@ -18,7 +19,7 @@ export class Home extends Component {
            title="Welcome"
         />
         <CardContent>
-          Hello.
+          <ChartSavingsPerMonth />
         </CardContent>
       </HomeCard>
     )
