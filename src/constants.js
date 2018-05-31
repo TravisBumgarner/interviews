@@ -1,4 +1,4 @@
-export const MEASUREMENTS_COLUMNS_ORDER = [
+export const MEASUREMENTS_PROPERTIES_ORDERING = [
   'year',
   'month',
   'kwh',

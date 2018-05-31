@@ -9,18 +9,36 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
-import { MEASUREMENTS_COLUMNS_ORDER } from '../../constants';
+import { MEASUREMENTS_PROPERTIES_ORDERING } from '../../constants';
 
 import AdminRow from '../../containers/AdminRow';
+import AdminCreateEditForm from '../../containers/AdminCreateEditForm';
 
 import {
   AdminCard
 } from "./Admin.styles";
 
 export class Admin extends Component {
-  handleCreate = () => {
-    console.log('create');
+  constructor(props) {
+    super(props);
+    this.state = {
+      isDialogOpen: false,
+    };
+  }
+
+  toggleDialogOpen = () => {
+    this.setState({
+      isDialogOpen: !this.state.isDialogOpen,
+    })
+  };
+
+  submitForm = () => {
+    // Form validation would be a great addition here. Perhaps date pickers, etc. as well.
   }
 
   render(){
@@ -31,7 +49,7 @@ export class Admin extends Component {
     console.log(measurements);
     console.log(Array.isArray(measurements));
 
-    const headerCells = MEASUREMENTS_COLUMNS_ORDER.map(m => {
+    const headerCells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
       return <TableCell key={ m }>{ m.toUpperCase() }</TableCell>
     });
     headerCells.push(<TableCell key="edit">EDIT</TableCell>);
@@ -47,7 +65,9 @@ export class Admin extends Component {
            title="Admin"
         />
         <CardContent>
-          <Button onClick={ this.handleCreate } variant="raised" color="primary">Create</Button>
+
+
+          <Button onClick={ this.toggleDialogOpen } variant="raised" color="primary">Create</Button>
 
           <Table>
             <TableHead>
@@ -59,6 +79,25 @@ export class Admin extends Component {
               { rows }
             </TableBody>
           </Table>
+
+          <Dialog
+            open={this.state.isDialogOpen}
+            onClose={this.handleDialogClose}
+            aria-labelledby="createEditForm"
+          >
+            <DialogTitle id="createEditForm">Create a new Entry</DialogTitle>
+            <DialogContent>
+              <AdminCreateEditForm />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.toggleDialogOpen} color="primary">
+                Cancel
+              </Button>
+              <Button onClick={this.toggleDialogOpen} color="primary">
+                Subscribe
+              </Button>
+            </DialogActions>
+          </Dialog>
 
         </CardContent>
       </AdminCard>
@@ -72,3 +111,7 @@ export default connect((state) => ({
 }), {
 
 })(Admin);
+
+
+
+

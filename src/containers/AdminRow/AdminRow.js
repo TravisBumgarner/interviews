@@ -6,7 +6,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Button from '@material-ui/core/Button';
 
-import { MEASUREMENTS_COLUMNS_ORDER } from '../../constants';
+import { MEASUREMENTS_PROPERTIES_ORDERING } from '../../constants';
 import measurementActions from '../../store/measurements/actions';
 
 import {
@@ -32,7 +32,7 @@ export class AdminRow extends Component {
       data,
     } = this.props;
 
-    const cells = MEASUREMENTS_COLUMNS_ORDER.map(m => {
+    const cells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
       return <TableCell key={ data[m] }>{ data[m] }</TableCell>
     });
 
