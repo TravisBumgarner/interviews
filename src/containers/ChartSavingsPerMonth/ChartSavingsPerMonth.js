@@ -58,14 +58,22 @@ export class ChartSavingsPerMonth extends Component {
       series: [],
     };
 
-    const singleSeries = [];
+    const savingsSeries = {
+      data: [],
+      className: 'savingsSeriesStackedBar'
+    };
+    const billSeries = {
+      data: [],
+      className: 'billSeriesStackedBar'
+    };
 
     RAW_DATA.sort((a, b) => new Date(a.year, a.month) - new Date(b.year, b.month)).map(d => {
       chartData.labels.push(`${d.year} - ${d.month}`);
       // Series needs to be an array of arrays.
-      singleSeries.push(d.savings);
+      savingsSeries.data.push(d.savings);
+      billSeries.data.push(d.bill);
     });
-    chartData.series[0] = singleSeries;
+    chartData.series.push(billSeries, savingsSeries);
 
     return chartData;
   };
@@ -74,15 +82,15 @@ export class ChartSavingsPerMonth extends Component {
 
     const chartData = this.processData();
     const chartOptions = {
-
+      stackBars: true,
     };
 
     console.log(chartData);
 
     return (
       <Fragment>
-        <Header>Savings Per Month</Header>
-        <ChartistGraph data={ chartData } type="Bar" />
+        <Header>Savings Per Month (red: bill, green: savings)</Header>
+        <ChartistGraph data={ chartData } options={ chartOptions } type="Bar" />
       </Fragment>
     )
   }
