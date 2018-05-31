@@ -41,11 +41,11 @@ export class AdminCreateEditModal extends Component {
 
   handleModalClose = () => {
     const {
-      toggleModalOpen,
+      closeModal,
     } = this.props;
 
     this.setFormToDefaultValues();
-    toggleModalOpen();
+    closeModal();
 
   };
 
@@ -53,14 +53,16 @@ export class AdminCreateEditModal extends Component {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  handleSubmit = () => {
+  handleCreate = () => {
     const {
-      toggleModalOpen,
+      closeModal,
       createMeasurement,
     } = this.props;
 
-    // toggleModalOpen could be refactored into the redux store so that on CREATE_MEASUREMENT_SUCCESS this modal could
-    // close or on CREATE_MEASUREMENT_FAILURE an error could be displayed here. Additionally, there should be some
+    // closeModal could be refactored into the redux store so that on CREATE_MEASUREMENT_SUCCESS this modal could
+    // close or on CREATE_MEASUREMENT_FAILURE an error could be displayed here.
+    //
+    // Additionally, there should be some
     // sort of form validation here to make sure the inputs match the db model.
 
     const formData = {};
@@ -70,12 +72,17 @@ export class AdminCreateEditModal extends Component {
     createMeasurement(formData);
 
     this.setFormToDefaultValues();
-    toggleModalOpen();
+    closeModal();
   };
+
+  handleEdit = () => {
+    console.log('edit');
+  }
 
   render() {
     const {
       isModalOpen,
+      isEditMode,
     } = this.props;
 
     const formInputs = MEASUREMENTS_PROPERTIES_ORDERING.map(m =>{
@@ -100,7 +107,7 @@ export class AdminCreateEditModal extends Component {
         onClose={ this.handleModalClose }
         aria-labelledby="createEditModal"
       >
-        <DialogTitle id="createEditModal">Create a new Entry</DialogTitle>
+        <DialogTitle id="createEditModal">{ isEditMode ? "Edit this Entry" : "Create a new Entry" }</DialogTitle>
         <DialogContent>
           <DialogContentText>
             (Note: These inputs are not validated.
@@ -122,11 +129,11 @@ export class AdminCreateEditModal extends Component {
             Cancel
           </Button>
           <Button
-            onClick={ this.handleSubmit }
+            onClick={ isEditMode ? this.handleEdit : this.handleCreate }
             color="primary"
             variant="raised"
           >
-            Submit
+            { isEditMode ? "Update" : "Create" }
           </Button>
         </DialogActions>
       </Dialog>
@@ -135,8 +142,9 @@ export class AdminCreateEditModal extends Component {
 }
 
 AdminCreateEditModal.propTypes = {
-  toggleModalOpen: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
+  isEditMode: PropTypes.bool.isRequired,
 };
 
 export default connect((state, props) => ({

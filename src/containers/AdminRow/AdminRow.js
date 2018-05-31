@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { MEASUREMENTS_PROPERTIES_ORDERING } from '../../constants';
 import measurementActions from '../../store/measurements/actions';
 
+
 import {
 } from './AdminRow.styles';
 
@@ -29,6 +30,7 @@ export class AdminRow extends Component {
   render() {
     const {
       data,
+      openEditModal,
     } = this.props;
 
     const cells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
@@ -37,7 +39,7 @@ export class AdminRow extends Component {
 
     cells.push(
       <TableCell key="edit">
-        <Button onClick={ this.handleEdit } variant="raised" color="primary">Edit</Button>
+        <Button onClick={ openEditModal } variant="raised" color="primary">Edit</Button>
       </TableCell>
     );
 
@@ -57,6 +59,7 @@ export class AdminRow extends Component {
 AdminRow.propTypes = {
   data: PropTypes.object.isRequired,
   deleteMeasurement: PropTypes.func.isRequired,
+  openEditModal: PropTypes.func.isRequired,
 };
 
 export default connect((state, props) => ({

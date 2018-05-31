@@ -24,14 +24,27 @@ export class Admin extends Component {
     super(props);
     this.state = {
       isModalOpen: false,
+      isEditMode: false,
     };
   }
 
-  toggleModalOpen = () => {
+  setModalToCreate = () => {
     this.setState({
-      isModalOpen: !this.state.isModalOpen,
+      isModalOpen: true,
+      isEditMode: false,
     })
   };
+
+  setModalToEdit = () => {
+    this.setState({
+      isModalOpen: true,
+      isEditMode: true,
+    })
+  };
+
+  setModaltoClosed = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen })
+  }
 
   render(){
     const {
@@ -40,6 +53,7 @@ export class Admin extends Component {
 
     const {
       isModalOpen,
+      isEditMode,
     } = this.state;
 
     const headerCells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
@@ -49,7 +63,13 @@ export class Admin extends Component {
     headerCells.push(<TableCell key="delete">DELETE</TableCell>);
 
     const rows = measurements.map(m => {
-      return <AdminRow key = { m._id } data={ m } />
+      return (
+        <AdminRow
+          key={ m._id }
+          data={ m }
+          openEditModal={ this.setModalToEdit }
+        />
+      )
     });
 
     return (
@@ -58,10 +78,7 @@ export class Admin extends Component {
            title="Admin"
         />
         <CardContent>
-
-
-          <Button onClick={ this.toggleModalOpen } variant="raised" color="primary">Create</Button>
-
+          <Button onClick={ this.setModalToCreate } variant="raised" color="primary">Create</Button>
           <Table>
             <TableHead>
               <TableRow>
@@ -74,8 +91,9 @@ export class Admin extends Component {
           </Table>
 
           <AdminCreateEditModal
-            toggleModalOpen = { this.toggleModalOpen }
+            closeModal = { this.setModaltoClosed }
             isModalOpen = { isModalOpen }
+            isEditMode = { isEditMode }
           />
 
         </CardContent>
