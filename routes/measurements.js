@@ -21,6 +21,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
+  console.log(`post request received ${req.body}`)
   Measurement.create(req.body, (err, post) => {
     if(err) return next(err);
     res.json(post);
@@ -29,7 +30,7 @@ router.post('/', (req, res, next) => {
 
 router.put('/:id', (req, res) => {
   console.log(`updating ${req.params.id}`);
-  Measurement.findByIdAndUpdate(req.params.id, req.body, (err, post) => {
+  Measurement.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, post) => {
     if (err) return next(err);
     res.json(post);
   });
@@ -40,6 +41,7 @@ router.delete('/:id', (req, res, next) => {
   Measurement.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
+    console.log('success')
   });
 });
 
