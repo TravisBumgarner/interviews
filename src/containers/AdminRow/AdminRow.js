@@ -24,7 +24,6 @@ export class AdminRow extends Component {
     } = this.props;
     const shouldDelete = confirm("Are you sure you want to delete this entry?");
     if(shouldDelete) deleteMeasurement(_id);
-    console.log(`delete ${ _id }`);
   };
 
   render() {
@@ -33,7 +32,7 @@ export class AdminRow extends Component {
     } = this.props;
 
     const cells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
-      return <TableCell key={ data[m] }>{ data[m] }</TableCell>
+      return <TableCell key={ m }>{ data[m] }</TableCell>
     });
 
     cells.push(
