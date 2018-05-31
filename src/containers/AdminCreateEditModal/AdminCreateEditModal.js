@@ -85,7 +85,7 @@ export class AdminCreateEditModal extends Component {
       formData[m] = this.state[m];
     });
 
-    formData["_id"] = selectedId;
+    if(isEditMode) formData["_id"] = selectedId;
 
     isEditMode ? editMeasurement(formData) : createMeasurement(formData);
 
