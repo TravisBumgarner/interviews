@@ -32,10 +32,6 @@ export class AdminCreateEditModal extends Component {
     };
   }
 
-  componentWillMount(){
-    console.log('mounting');
-  }
-
   componentWillReceiveProps(nextProps){
     const {
       data,
@@ -61,7 +57,7 @@ export class AdminCreateEditModal extends Component {
       closeModal,
     } = this.props;
 
-    this.setFormValues();
+    this.setFormValues(DEFAULT_FORM_VALUES);
     closeModal();
   };
 
@@ -69,10 +65,13 @@ export class AdminCreateEditModal extends Component {
     this.setState({ [event.target.id]: event.target.value });
   };
 
-  handleCreate = () => {
+  handleSubmit = () => {
     const {
       closeModal,
       createMeasurement,
+      editMeasurement,
+      isEditMode,
+      selectedId,
     } = this.props;
 
     // closeModal could be refactored into the redux store so that on CREATE_MEASUREMENT_SUCCESS this modal could
@@ -85,15 +84,15 @@ export class AdminCreateEditModal extends Component {
     MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
       formData[m] = this.state[m];
     });
-    createMeasurement(formData);
 
-    this.setFormValues();
+    formData["_id"] = selectedId;
+
+    isEditMode ? editMeasurement(formData) : createMeasurement(formData);
+
+    this.setFormValues(DEFAULT_FORM_VALUES);
     closeModal();
   };
 
-  handleEdit = () => {
-    console.log('edit');
-  };
 
   render() {
     const {
@@ -101,8 +100,7 @@ export class AdminCreateEditModal extends Component {
       isEditMode,
       selectedId,
     } = this.props;
-    console.log('createeditmodal state', this.state);
-    console.log(`modal selectedId ${selectedId} isEditMode ${isEditMode}`);
+
     const formInputs = MEASUREMENTS_PROPERTIES_ORDERING.map(m =>{
       return (
         <FormControl
@@ -147,7 +145,7 @@ export class AdminCreateEditModal extends Component {
             Cancel
           </Button>
           <Button
-            onClick={ isEditMode ? this.handleEdit : this.handleCreate }
+            onClick={ this.handleSubmit }
             color="primary"
             variant="raised"
           >
@@ -170,4 +168,5 @@ export default connect((state, props) => ({
   data: state.measurements.all,
 }), {
   createMeasurement: measurementActions.createMeasurement,
+  editMeasurement: measurementActions.editMeasurement,
 })(AdminCreateEditModal);

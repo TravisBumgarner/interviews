@@ -12,6 +12,11 @@ const all = (state = [], action) => {
         ...state,
         action.data,
       ];
+    case measurementActions.EDIT_MEASUREMENT_SUCCESS:
+      return [
+        ...state.filter(s => s._id !== action.data._id),
+        action.data,
+      ];
     case measurementActions.DELETE_MEASUREMENT_SUCCESS:
       return [
         ...state.filter(s => s._id !== action._id)
