@@ -15,28 +15,45 @@ import Button from '@material-ui/core/Button';
 import { MEASUREMENTS_PROPERTIES_ORDERING } from '../../constants';
 import measurementActions from '../../store/measurements/actions';
 
+const DEFAULT_FORM_VALUES = {};
+
+MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
+  DEFAULT_FORM_VALUES[m] = "";
+});
+
 import {
 } from './AdminCreateEditModal.styles';
 
 export class AdminCreateEditModal extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
     };
   }
 
   componentWillMount(){
-    this.setFormToDefaultValues();
-  };
+    console.log('mounting');
+  }
 
-  setFormToDefaultValues = () => {
-    const measurementsKeyValues = {};
+  componentWillReceiveProps(nextProps){
+    const {
+      data,
+    } = this.props;
 
-    MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
-      measurementsKeyValues[m] = "";
+    const formData = nextProps.selectedId ? (
+      data.filter(m => { return m._id === nextProps.selectedId })[0]
+    ): (
+      DEFAULT_FORM_VALUES
+    );
+
+    this.setState({
+      ...formData
     });
+  }
 
-    this.setState(measurementsKeyValues);
+  setFormValues = (data) => {
+    this.setState({...data});
   };
 
   handleModalClose = () => {
@@ -44,9 +61,8 @@ export class AdminCreateEditModal extends Component {
       closeModal,
     } = this.props;
 
-    this.setFormToDefaultValues();
+    this.setFormValues();
     closeModal();
-
   };
 
   handleChange = event => {
@@ -71,20 +87,22 @@ export class AdminCreateEditModal extends Component {
     });
     createMeasurement(formData);
 
-    this.setFormToDefaultValues();
+    this.setFormValues();
     closeModal();
   };
 
   handleEdit = () => {
     console.log('edit');
-  }
+  };
 
   render() {
     const {
       isModalOpen,
       isEditMode,
+      selectedId,
     } = this.props;
-
+    console.log('createeditmodal state', this.state);
+    console.log(`modal selectedId ${selectedId} isEditMode ${isEditMode}`);
     const formInputs = MEASUREMENTS_PROPERTIES_ORDERING.map(m =>{
       return (
         <FormControl
@@ -117,7 +135,7 @@ export class AdminCreateEditModal extends Component {
         </DialogContent>
         <DialogActions>
           <Button
-            onClick={ this.setFormToDefaultValues }
+            onClick={ this.setFormValues }
             color="primary"
           >
             Clear
@@ -145,9 +163,11 @@ AdminCreateEditModal.propTypes = {
   closeModal: PropTypes.func.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   isEditMode: PropTypes.bool.isRequired,
+  selectedId: PropTypes.string.isRequired,
 };
 
 export default connect((state, props) => ({
+  data: state.measurements.all,
 }), {
   createMeasurement: measurementActions.createMeasurement,
 })(AdminCreateEditModal);

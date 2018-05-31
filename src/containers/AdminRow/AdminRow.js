@@ -15,7 +15,12 @@ import {
 
 export class AdminRow extends Component {
   handleEdit = () => {
-    console.log('edit');
+    const {
+      data: { _id },
+      openEditModal,
+    } = this.props;
+
+    openEditModal(_id);
   };
 
   handleDelete = () => {
@@ -30,7 +35,6 @@ export class AdminRow extends Component {
   render() {
     const {
       data,
-      openEditModal,
     } = this.props;
 
     const cells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
@@ -39,7 +43,7 @@ export class AdminRow extends Component {
 
     cells.push(
       <TableCell key="edit">
-        <Button onClick={ openEditModal } variant="raised" color="primary">Edit</Button>
+        <Button onClick={ this.handleEdit } variant="raised" color="primary">Edit</Button>
       </TableCell>
     );
 

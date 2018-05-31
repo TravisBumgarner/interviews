@@ -25,6 +25,7 @@ export class Admin extends Component {
     this.state = {
       isModalOpen: false,
       isEditMode: false,
+      selectedId: '',
     };
   }
 
@@ -32,19 +33,21 @@ export class Admin extends Component {
     this.setState({
       isModalOpen: true,
       isEditMode: false,
+      selectedId: '',
     })
   };
 
-  setModalToEdit = () => {
+  setModalToEdit = (_id) => {
     this.setState({
       isModalOpen: true,
       isEditMode: true,
+      selectedId: _id,
     })
   };
 
   setModaltoClosed = () => {
     this.setState({ isModalOpen: !this.state.isModalOpen })
-  }
+  };
 
   render(){
     const {
@@ -54,7 +57,10 @@ export class Admin extends Component {
     const {
       isModalOpen,
       isEditMode,
+      selectedId,
     } = this.state;
+
+
 
     const headerCells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
       return <TableCell key={ m }>{ m.toUpperCase() }</TableCell>
@@ -71,7 +77,7 @@ export class Admin extends Component {
         />
       )
     });
-
+    console.log(`admin selectedId ${selectedId} isEditMode ${isEditMode} isModalOpen ${isModalOpen}`);
     return (
       <AdminCard>
         <CardHeader
@@ -94,6 +100,7 @@ export class Admin extends Component {
             closeModal = { this.setModaltoClosed }
             isModalOpen = { isModalOpen }
             isEditMode = { isEditMode }
+            selectedId = { selectedId }
           />
 
         </CardContent>
