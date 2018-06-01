@@ -19,9 +19,6 @@ export const editMeasurementFailure = error => ({
 });
 
 export const editMeasurement = (data) => {
-
-  console.log(data);
-
   return (dispatch) => {
     dispatch(editMeasurementStart());
     return new Promise((resolve, reject) => {

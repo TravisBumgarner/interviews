@@ -60,13 +60,11 @@ export class Admin extends Component {
       selectedId,
     } = this.state;
 
-
-
     const headerCells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
-      return <TableCell key={ m }>{ m.toUpperCase() }</TableCell>
+      return <TableCell padding="none" key={ m }>{ m.toUpperCase() }</TableCell>
     });
-    headerCells.push(<TableCell key="edit">EDIT</TableCell>);
-    headerCells.push(<TableCell key="delete">DELETE</TableCell>);
+    headerCells.push(<TableCell padding="none" key="edit">EDIT</TableCell>);
+    headerCells.push(<TableCell padding="none" key="delete">DELETE</TableCell>);
 
     const rows = measurements.map(m => {
       return (
@@ -77,7 +75,6 @@ export class Admin extends Component {
         />
       )
     });
-    console.log(`admin selectedId ${selectedId} isEditMode ${isEditMode} isModalOpen ${isModalOpen}`);
     return (
       <AdminCard>
         <CardHeader
@@ -95,18 +92,15 @@ export class Admin extends Component {
               { rows }
             </TableBody>
           </Table>
-
           <AdminCreateEditModal
             closeModal = { this.setModaltoClosed }
             isModalOpen = { isModalOpen }
             isEditMode = { isEditMode }
             selectedId = { selectedId }
           />
-
         </CardContent>
       </AdminCard>
     )
-
   }
 }
 

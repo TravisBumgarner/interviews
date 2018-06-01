@@ -26,7 +26,6 @@ export const deleteMeasurement = (id) => {
         const {
           data: {_id},
         } = response;
-        console.log('this')
         dispatch(deleteMeasurementSuccess(_id));
         resolve();
       }).catch(() => {

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Switch, Route, withRouter } from 'react-router-dom';
-
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 import Home from '../Home';
 import NotFound from '../NotFound';
 import Admin from '../Admin';
+import Nav from '../../containers/Nav';
 
 import measurementActions from '../../store/measurements/actions';
-
-import Nav from '../../containers/Nav';
 
 import {
   AppWrapper,
@@ -30,9 +28,7 @@ export class App extends Component {
   render() {
     const {
       isLoading,
-      doMeasurementsExist,
     } = this.props;
-
 
     return (
       !isLoading ? (
@@ -56,7 +52,6 @@ export class App extends Component {
 
 export default withRouter(connect((state) => ({
   isLoading: state.measurements.meta.isLoading,
-  doMeasurementsExist: state.measurements.meta.doMeasurementsExist,
 }), {
   getMeasurements: measurementActions.getMeasurements,
 })(App));

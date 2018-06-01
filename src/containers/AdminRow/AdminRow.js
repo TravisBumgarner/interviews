@@ -38,17 +38,17 @@ export class AdminRow extends Component {
     } = this.props;
 
     const cells = MEASUREMENTS_PROPERTIES_ORDERING.map(m => {
-      return <TableCell key={ m }>{ data[m] }</TableCell>
+      return <TableCell padding="none" key={ m }>{ data[m] }</TableCell>
     });
 
     cells.push(
-      <TableCell key="edit">
+      <TableCell padding="none" key="edit">
         <Button onClick={ this.handleEdit } variant="raised" color="primary">Edit</Button>
       </TableCell>
     );
 
     cells.push(
-      <TableCell key="delete">
+      <TableCell padding="none" key="delete">
         <Button onClick={ this.handleDelete } variant="raised" color="secondary">Delete</Button>
       </TableCell>
     );

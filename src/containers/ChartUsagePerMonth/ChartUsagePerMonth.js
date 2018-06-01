@@ -6,13 +6,6 @@ import PropTypes from 'prop-types';
 import Header from '../../components/Header';
 
 export class ChartUsagePerMonth extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-
-    };
-  }
 
   processData = () => {
     const {
@@ -31,7 +24,6 @@ export class ChartUsagePerMonth extends Component {
 
     data.sort((a, b) => new Date(a.year, a.month) - new Date(b.year, b.month)).map(d => {
       chartData.labels.push(`${d.year} - ${d.month}`);
-      // Series needs to be an array of arrays.
       usageSeries.data.push(d.kwh);
     });
     chartData.series.push(usageSeries);
@@ -45,8 +37,6 @@ export class ChartUsagePerMonth extends Component {
     const chartOptions = {
       low: 0,
     };
-
-    console.log(chartData);
 
     return (
       <Fragment>

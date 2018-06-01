@@ -25,12 +25,6 @@ import {
 } from './AdminCreateEditModal.styles';
 
 export class AdminCreateEditModal extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-    };
-  }
 
   componentWillReceiveProps(nextProps){
     const {
@@ -98,7 +92,6 @@ export class AdminCreateEditModal extends Component {
     const {
       isModalOpen,
       isEditMode,
-      selectedId,
     } = this.props;
 
     const formInputs = MEASUREMENTS_PROPERTIES_ORDERING.map(m =>{
