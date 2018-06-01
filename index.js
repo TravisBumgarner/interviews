@@ -2,16 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const app = express();
+const DB = require('./db');
 const measurements = require('./routes/measurements');
 const test = require('./routes/test');
 
-mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/sol').then((m)=>{
-  console.log('connected to mongo db');
-}).catch((e)=>{
-  console.log(e);
-});
+const app = express();
+
+DB.connect();
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -30,6 +27,6 @@ app.use('/measurements', measurements);
 const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
-  console.log(`running on port ${port}`);
-})
+  console.log(`Running on port ${port}`);
+});
 

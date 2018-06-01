@@ -1,11 +1,10 @@
-var express = require('express');
-var mongoose = require('mongoose');
+const express = require('express');
+const mongoose = require('mongoose');
 
-var Measurement = require('../models/Measurement');
-var router = express.Router();
+const Measurement = require('../models/Measurement');
+const router = express.Router();
 
 router.get('/:id', (req, res, next) => {
-  console.log(`get request received for ${req.params.id}`);
   Measurement.findById(req.params.id, req.body, (err, measurement) => {
     if(err) return next(err);
     res.json(measurement);
@@ -13,7 +12,6 @@ router.get('/:id', (req, res, next) => {
 });
 
 router.get('/', (req, res, next) => {
-  console.log('get request received')
   Measurement.find((err, measurements) => {
     if(err) return next(err);
     res.json(measurements);
@@ -21,15 +19,13 @@ router.get('/', (req, res, next) => {
 });
 
 router.post('/', (req, res, next) => {
-  console.log(`post request received ${req.body}`)
   Measurement.create(req.body, (err, post) => {
     if(err) return next(err);
     res.json(post);
   });
 });
 
-router.put('/:id', (req, res) => {
-  console.log(`updating ${req.params.id}`);
+router.put('/:id', (req, res, next) => {
   Measurement.findByIdAndUpdate(req.params.id, req.body, {new: true}, (err, post) => {
     if (err) return next(err);
     res.json(post);
@@ -37,32 +33,10 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-  console.log(`deleting ${req.params.id}`);
   Measurement.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
-    console.log('success')
   });
 });
 
 module.exports = router;
-
-
-
-// async function createMeasurement(data){
-//   const measurement = new Measurement(data)
-//   const result = await measurement.save();
-//   return result;
-// }
-// createMeasurement({})
-
-// async function getMeasurements(){
-//   const measurements = await Measurement.find();
-//   console.log(measurements);
-//   return measurements;
-// }
-
-// module.exports = {
-//   createMeasurement,
-//   getMeasurements,
-// }

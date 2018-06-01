@@ -7,12 +7,13 @@ function connect(){
   }).catch((e)=>{
     console.log(e);
   });
-};
+}
 
 function disconnect(){
   mongoose.connection.close();
   console.log('Connection Closed');
 }
+
 module.exports.connect = connect;
 module.exports.disconnect = disconnect;
 

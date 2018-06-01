@@ -1,5 +1,5 @@
-var Measurement = require('./models/Measurement');
-var DB = require('./db');
+const Measurement = require('./models/Measurement');
+const DB = require('./db');
 
 DB.connect();
 
