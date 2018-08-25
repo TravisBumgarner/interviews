@@ -1,3 +1,4 @@
+(*Note*: this dir was a bit botched when moving over to `/interviews`)
 # Setup
 1. Install python2.7 and pip
    1. (Optional) install virtualenv and virtualenvwrapper
