@@ -1,0 +1,5 @@
+ADDITION = 'add'
+SUBTRACTION = 'sub'
+MULTIPLICATION = 'mul'
+DIVISION = 'div'
+UNKNOWN = 'unk'
