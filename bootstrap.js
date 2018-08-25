@@ -1,0 +1,47 @@
+const Measurement = require('./models/Measurement');
+const DB = require('./db');
+
+DB.connect();
+
+const STARTER_DATA = [
+    {
+        "year": 2017,
+        "month": 4,
+        "kwh": 1000,
+        "bill": 124.04,
+        "savings": 12.99
+    },
+    {
+        "year": 2017,
+        "month": 3,
+        "kwh": 730,
+        "bill": 94.14,
+        "savings": 2.99
+    },
+    {
+        "year": 2017,
+        "month": 2,
+        "kwh": 500,
+        "bill": 70.04,
+        "savings": 1.32
+    },
+    {
+        "year": 2017,
+        "month": 1,
+        "kwh": 750,
+        "bill": 73.29,
+        "savings": 3.49
+    },
+    {
+        "year": 2016,
+        "month": 12,
+        "kwh": 1500,
+        "bill": 144.04,
+        "savings": 19.81
+    }
+];
+
+Measurement.collection.insertMany(STARTER_DATA, () =>{
+  console.log("Data Added");
+  DB.disconnect();
+});
